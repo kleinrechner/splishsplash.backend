@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Kleinrechner.SplishSplash.Backend.GpioService;
 using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
 using Microsoft.AspNetCore.Http;
+using Serilog;
 
 namespace Kleinrechner.SplishSplash.Backend
 {
@@ -43,6 +44,9 @@ namespace Kleinrechner.SplishSplash.Backend
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Add this line; you'll need `using Serilog;` up the top, too
+            app.UseSerilogRequestLogging();
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
