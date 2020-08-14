@@ -3,7 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend", "SplishSplash.Backend\SplishSplash.Backend.csproj", "{1C835779-75FA-4D9E-AA18-5951F7B57DDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend", "SplishSplash.Backend\SplishSplash.Backend.csproj", "{1C835779-75FA-4D9E-AA18-5951F7B57DDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{C642DFF0-62B7-4E05-BE95-A3D65C8748B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.GpioService.Contract", "SplishSplash.Backend.GpioService.Contract\SplishSplash.Backend.GpioService.Contract.csproj", "{D8BDC060-EB30-4345-9681-03E2225A5983}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.GpioService", "SplishSplash.Backend.GpioService\SplishSplash.Backend.GpioService.csproj", "{265A9ABB-23F7-4C7D-81CF-07A5F8377E78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82F86C87-55C2-4C42-9397-27C16E50095E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.GpioService.Test", "SplishSplash.Backend.GpioService.Test\SplishSplash.Backend.GpioService.Test.csproj", "{2DE13179-37AD-4F9F-BC78-88CE4FD11FB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +25,26 @@ Global
 		{1C835779-75FA-4D9E-AA18-5951F7B57DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C835779-75FA-4D9E-AA18-5951F7B57DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C835779-75FA-4D9E-AA18-5951F7B57DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BDC060-EB30-4345-9681-03E2225A5983}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BDC060-EB30-4345-9681-03E2225A5983}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BDC060-EB30-4345-9681-03E2225A5983}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BDC060-EB30-4345-9681-03E2225A5983}.Release|Any CPU.Build.0 = Release|Any CPU
+		{265A9ABB-23F7-4C7D-81CF-07A5F8377E78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{265A9ABB-23F7-4C7D-81CF-07A5F8377E78}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{265A9ABB-23F7-4C7D-81CF-07A5F8377E78}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{265A9ABB-23F7-4C7D-81CF-07A5F8377E78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DE13179-37AD-4F9F-BC78-88CE4FD11FB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DE13179-37AD-4F9F-BC78-88CE4FD11FB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DE13179-37AD-4F9F-BC78-88CE4FD11FB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DE13179-37AD-4F9F-BC78-88CE4FD11FB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D8BDC060-EB30-4345-9681-03E2225A5983} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{265A9ABB-23F7-4C7D-81CF-07A5F8377E78} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{2DE13179-37AD-4F9F-BC78-88CE4FD11FB1} = {82F86C87-55C2-4C42-9397-27C16E50095E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4312BFF-A6A7-458F-8607-F1F326454229}

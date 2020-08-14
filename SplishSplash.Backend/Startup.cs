@@ -9,8 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Kleinrechner.SplishSplash.Backend.GpioService;
+using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
 
-namespace SplishSplash.Backend
+namespace Kleinrechner.SplishSplash.Backend
 {
     public class Startup
     {
@@ -25,6 +27,8 @@ namespace SplishSplash.Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            RegisterServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +47,12 @@ namespace SplishSplash.Backend
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void RegisterServices(IServiceCollection services)
+        {
+            services.AddScoped<IGpioService, GpioService.GpioService>();
+            services.AddScoped<IGpioPinWrapperFactory, GpioPinWrapperFactory>();
         }
     }
 }

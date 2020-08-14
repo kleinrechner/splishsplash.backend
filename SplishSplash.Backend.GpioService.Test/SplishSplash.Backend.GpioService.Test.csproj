@@ -1,0 +1,37 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <AssemblyName>Kleinrechner.SplishSplash.Backend.GpioService.Test</AssemblyName>
+
+    <RootNamespace>Kleinchner.SplishSplash.Backend.GpioService.Test</RootNamespace>
+
+    <Copyright>Copyright © Kleinrechner 2015</Copyright>
+
+    <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
+
+    <RepositoryType>git</RepositoryType>
+
+    <PackageProjectUrl>https://kleinrechner.visualstudio.com/SplishSplash</PackageProjectUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.7" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
+    <PackageReference Include="Moq" Version="4.14.5" />
+    <PackageReference Include="xunit" Version="2.4.0" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="coverlet.collector" Version="1.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SplishSplash.Backend.GpioService.Contract\SplishSplash.Backend.GpioService.Contract.csproj" />
+    <ProjectReference Include="..\SplishSplash.Backend.GpioService\SplishSplash.Backend.GpioService.csproj" />
+  </ItemGroup>
+
+</Project>

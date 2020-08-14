@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace SplishSplash.Backend
+namespace Kleinrechner.SplishSplash.Backend
 {
     public class Program
     {
