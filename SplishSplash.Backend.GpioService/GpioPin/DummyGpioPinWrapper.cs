@@ -14,6 +14,12 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
         private readonly ILogger<GpioPinWrapper> _logger;
 
         public int GpioPinNumber { get; set; }
+        
+        public int PhysicalPinNumber { get; set; }
+        
+        public bool Value { get; set; }
+        
+        public GpioPinDriveMode Mode { get; set; }
 
         #endregion
 
@@ -29,6 +35,14 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
         #endregion
 
         #region Methods
+
+        public void WriteOutput(bool value)
+        {
+            Mode = GpioPinDriveMode.Output;
+            Value = value;
+            _logger.LogInformation($"Set Pin {GpioPinNumber} to Mode {Mode} at Value {Value}");
+        }
+
         #endregion
 
     }

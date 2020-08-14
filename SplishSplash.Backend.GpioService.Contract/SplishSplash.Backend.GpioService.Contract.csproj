@@ -10,4 +10,8 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Unosquare.Raspberry.Abstractions" Version="0.4.0" />
+  </ItemGroup>
+
 </Project>

@@ -28,10 +28,32 @@ namespace Kleinrechner.SplishSplash.Backend.Controllers
             return gpioPins;
         }
 
-        [HttpGet("Get/{gpioPinNumber}")]
+        [HttpGet("Clean")]
+        public IEnumerable<IGpioPinWrapper> Clean()
+        {
+            var gpioPins = _gpioService.ClearAll();
+            return gpioPins;
+        }
+
+        [HttpGet("pin/{gpioPinNumber}")]
         public IGpioPinWrapper Get([FromRoute] int gpioPinNumber)
         {
             var gpioPin = _gpioService.GetGpioPin(gpioPinNumber);
+            return gpioPin;
+        }
+
+        [HttpGet("pin/{gpioPinNumber}/clean")]
+        public IGpioPinWrapper Clean([FromRoute] int gpioPinNumber)
+        {
+            var gpioPin = _gpioService.Clear(gpioPinNumber);
+            return gpioPin;
+        }
+
+        [HttpPost("pin/{gpioPinNumber}")]
+        [HttpPut("pin/{gpioPinNumber}")]
+        public IGpioPinWrapper Write([FromRoute] int gpioPinNumber, [FromBody] bool value)
+        {
+            var gpioPin = _gpioService.WriteGpioPinValue(gpioPinNumber, value);
             return gpioPin;
         }
     }

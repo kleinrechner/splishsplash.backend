@@ -69,7 +69,9 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
             var allGpioPinWrapper = gpioPinWrapperFactory.GetAll();
 
             // Assert
-            allGpioPinWrapper.Should().NotBeNullOrEmpty().And.NotContainNulls();
+            allGpioPinWrapper.Should().NotBeNullOrEmpty()
+                .And.NotContainNulls()
+                .And.OnlyHaveUniqueItems(x => x.PhysicalPinNumber);
         }
 
         private IGpioPinWrapperFactory PrepareGpioPinWrapperFactory()

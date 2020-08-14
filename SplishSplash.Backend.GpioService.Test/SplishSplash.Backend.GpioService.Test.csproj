@@ -7,7 +7,7 @@
 
     <AssemblyName>Kleinrechner.SplishSplash.Backend.GpioService.Test</AssemblyName>
 
-    <RootNamespace>Kleinchner.SplishSplash.Backend.GpioService.Test</RootNamespace>
+    <RootNamespace>Kleinrechner.SplishSplash.Backend.GpioService.Test</RootNamespace>
 
     <Copyright>Copyright © Kleinrechner 2015</Copyright>
 

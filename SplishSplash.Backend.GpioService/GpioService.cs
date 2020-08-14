@@ -37,6 +37,29 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
             return _gpioPinWrapperFactory.Get(gpioPinNumber);
         }
 
+        public IGpioPinWrapper WriteGpioPinValue(int gpioPinNumber, bool value)
+        {
+            var gpioPinWrapper = GetGpioPin(gpioPinNumber);
+            gpioPinWrapper.WriteOutput(value);
+            return gpioPinWrapper;
+        }
+
+        public IGpioPinWrapper Clear(int gpioPinNumber)
+        {
+            var gpioPinWrapper = GetGpioPin(gpioPinNumber);
+            gpioPinWrapper.WriteOutput(false);
+            return gpioPinWrapper;
+        }
+
+        public IEnumerable<IGpioPinWrapper> ClearAll()
+        {
+            foreach (var gpioPinWrapper in GetAllGpioPins())
+            {
+                gpioPinWrapper.WriteOutput(false);
+                yield return gpioPinWrapper;
+            }
+        }
+
         #endregion
     }
 }
