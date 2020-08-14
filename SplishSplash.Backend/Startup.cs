@@ -28,6 +28,9 @@ namespace Kleinrechner.SplishSplash.Backend
         {
             services.AddControllers();
 
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen();
+
             RegisterServices(services);
         }
 
@@ -38,6 +41,16 @@ namespace Kleinrechner.SplishSplash.Backend
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SplishSplash Backend API V1");
+            });
 
             app.UseRouting();
 
