@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Kleinrechner.SplishSplash.Backend.GpioService;
 using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
+using Microsoft.AspNetCore.Http;
 
 namespace Kleinrechner.SplishSplash.Backend
 {
@@ -50,6 +52,7 @@ namespace Kleinrechner.SplishSplash.Backend
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SplishSplash Backend API V1");
+                c.RoutePrefix = string.Empty;  // Set Swagger UI at apps root
             });
 
             app.UseRouting();
