@@ -34,7 +34,7 @@ namespace Kleinrechner.SplishSplash.Backend
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
 
-            RegisterServices(services);
+            GpioService.Infrastructure.Startup.ConfigureServices(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,12 +67,6 @@ namespace Kleinrechner.SplishSplash.Backend
             {
                 endpoints.MapControllers();
             });
-        }
-
-        private void RegisterServices(IServiceCollection services)
-        {
-            services.AddScoped<IGpioService, GpioService.GpioService>();
-            services.AddScoped<IGpioPinWrapperFactory, GpioPinWrapperFactory>();
         }
     }
 }
