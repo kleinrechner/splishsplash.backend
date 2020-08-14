@@ -4,7 +4,9 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
 using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
+using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Abstractions;
+using Unosquare.WiringPi;
 
 namespace Kleinrechner.SplishSplash.Backend.GpioService
 {
