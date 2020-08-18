@@ -41,6 +41,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            _logger.LogInformation($"Starting connection to {_settings.Value.HubUrl}");
             var credential = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(_settings.Value.User + ":" + _settings.Value.Password));
             _hubConnection = new HubConnectionBuilder()
                 .WithUrl($"{_settings.Value.HubUrl}/splishsplashhub",
@@ -52,7 +53,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
                 //.AddMessagePackProtocol()
                 .Build();
             
-            return _hubConnection.StartAsync();
+            return _hubConnection.StartAsync(stoppingToken);
         }
 
         public override void Dispose()

@@ -15,36 +15,22 @@ namespace Kleinrechner.SplishSplash.Backend
 {
     public class Program
     {
-        private static bool IsDevelopment =>
-            Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development";
-
-        public static IConfiguration Configuration { get; } = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", false, true)
-            .AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true)
-            .AddMultipleJsonFiles(Path.Combine(Directory.GetCurrentDirectory(), "config"))
-            .AddEnvironmentVariables()
-            .Build();
-
-        public static Logger Logger { get; } = new LoggerConfiguration()
-            .ReadFrom.Configuration(Configuration)
-            .Enrich.FromLogContext()
-            .CreateLogger();
-
         public static int Main(string[] args)
         {
-            Log.Logger = Logger;
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .CreateLogger();
 
             try
             {
-                Log.Information("Starting...");
-                var host = CreateHostBuilder(args).Build();
-                host.Run();
+                Log.Information("Starting Kleinrechner.SplishSplash.Backend...");
+                CreateHostBuilder(args).Build().Run();
                 return 0;
             }
             catch (Exception ex)
             {
-                Log.Fatal(ex, "Host terminated unexpectedly");
+                Log.Fatal(ex, "Application start-up failed");
                 return 1;
             }
             finally
@@ -56,7 +42,19 @@ namespace Kleinrechner.SplishSplash.Backend
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             
             Host.CreateDefaultBuilder(args)
-                .UseSerilog()
+                .ConfigureAppConfiguration((hostingContext, config) =>
+                {
+                    config.SetBasePath(hostingContext.HostingEnvironment.ContentRootPath);
+                    config.AddJsonFile("appsettings.json", false, true);
+                    config.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true);
+                    config.AddMultipleJsonFiles(Path.Combine(hostingContext.HostingEnvironment.ContentRootPath, "config"));
+                    config.AddEnvironmentVariables();
+                })
+                .UseSerilog((hostingContext, config) =>
+                {
+                    config.ReadFrom.Configuration(hostingContext.Configuration);
+                    config.Enrich.FromLogContext();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();

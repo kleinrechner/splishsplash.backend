@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kleinrechner.SplishSplash.Backend.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -19,16 +21,18 @@ namespace Kleinrechner.SplishSplash.Backend
 {
     public class Startup
     {
+        private readonly IConfiguration Configuration;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddOptions();
+            
             services.AddControllers();
 
             // Register the Swagger generator, defining 1 or more Swagger documents

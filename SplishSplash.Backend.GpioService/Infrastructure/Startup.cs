@@ -19,8 +19,8 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Infrastructure
 
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<IGpioService, GpioService>();
-            services.AddScoped<IGpioPinWrapperFactory, GpioPinWrapperFactory>();
+            services.AddTransient<IGpioService, GpioService>();
+            services.AddTransient<IGpioPinWrapperFactory, GpioPinWrapperFactory>();
         }
 
         #endregion
