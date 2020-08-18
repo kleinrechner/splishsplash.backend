@@ -1,0 +1,7 @@
+{
+  "subClientBackgroundServiceSettings": {
+    "HubUrl": "<Url of SplishSplash Hub>",
+    "User": "<Username of current Backend>",
+    "Password": ""
+  }
+}

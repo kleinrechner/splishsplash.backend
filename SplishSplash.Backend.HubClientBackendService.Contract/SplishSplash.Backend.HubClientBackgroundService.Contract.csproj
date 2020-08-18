@@ -2,16 +2,13 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>Kleinrechner.SplishSplash.Backend.GpioService.Contract</AssemblyName>
-    <RootNamespace>Kleinrechner.SplishSplash.Backend.GpioService.Contract</RootNamespace>
+    <AssemblyName>Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Contract</AssemblyName>
+    <RootNamespace>Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Contract</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Copyright>Copyright © Kleinrechner 2020</Copyright>
     <PackageProjectUrl>https://kleinrechner.visualstudio.com/SplishSplash</PackageProjectUrl>
     <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Unosquare.Raspberry.Abstractions" Version="0.4.0" />
-  </ItemGroup>
 
 </Project>

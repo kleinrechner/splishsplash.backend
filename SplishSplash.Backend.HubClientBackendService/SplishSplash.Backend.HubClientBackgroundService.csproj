@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Kleinrechner.SplishSplash.Backend.HubClientBackgroundService</AssemblyName>
+    <RootNamespace>Kleinrechner.SplishSplash.Backend.HubClientBackgroundService</RootNamespace>
+    <Copyright>Copyright © Kleinrechner 2020</Copyright>
+    <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
+    <PackageProjectUrl>https://kleinrechner.visualstudio.com/SplishSplash</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="config\HubClientBackgroundService.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="config\HubClientBackgroundService.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.7" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SplishSplash.Backend.GpioService.Contract\SplishSplash.Backend.GpioService.Contract.csproj" />
+    <ProjectReference Include="..\SplishSplash.Backend.HubClientBackendService.Contract\SplishSplash.Backend.HubClientBackgroundService.Contract.csproj" />
+  </ItemGroup>
+
+</Project>

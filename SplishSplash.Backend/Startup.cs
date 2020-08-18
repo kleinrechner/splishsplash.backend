@@ -35,6 +35,7 @@ namespace Kleinrechner.SplishSplash.Backend
             services.AddSwaggerGen();
 
             GpioService.Infrastructure.Startup.ConfigureServices(services, Configuration);
+            HubClientBackgroundService.Infrastructure.Startup.ConfigureServices(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
