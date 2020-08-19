@@ -39,13 +39,13 @@ steps:
 - task: NuGetAuthenticate@0
   displayName: Get Credentials of NuGet-Feed
   inputs:
-    nuGetServiceConnections: 'SplishSplashFeed'
+    nuGetServiceConnections: 'https://kleinrechner.pkgs.visualstudio.com/SplishSplash/_packaging/SplishSplashFeed'
 - task: NuGetCommand@2
   displayName: Push to NuGet-Feed
   inputs:
     command: push
     nuGetFeedType: external
-    publishFeedCredentials: 'SplishSplashFeed'
+    publishFeedCredentials: 'https://kleinrechner.pkgs.visualstudio.com/SplishSplash/_packaging/SplishSplashFeed'
     versioningScheme: byEnvVar
     versionEnvVar: version
 
