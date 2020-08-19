@@ -20,12 +20,34 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
 
+# do this after other tasks such as building
+- task: DotNetCoreCLI@2
+  inputs:
+    command: test
+    projects: 'Tests/**/*.csproj'
+    arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: .net Core Publish Linux-ARM
+  inputs:
+    command: publish
+    publishWebProjects: True
+    arguments: '--runtime linux-arm --self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+
+# this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
+- task: PublishBuildArtifacts@1
+  displayName: .net Core Create Artifacts Linux-ARM
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    artifactName: 'splishsplashbackend-arm'
+
 - task: DotNetCoreCLI@2
   displayName: .net Core Publish
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--runtime linux-arm --self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '--self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
