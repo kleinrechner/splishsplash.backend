@@ -21,12 +21,12 @@ steps:
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
 
 # do this after other tasks such as building
-- task: DotNetCoreCLI@2
-  displayName: .net Core Test
-  inputs:
-    command: test
-    projects: '**/*Test/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+#- task: DotNetCoreCLI@2
+#  displayName: .net Core Test
+#  inputs:
+#    command: test
+#    projects: '**/*Test/*.csproj'
+#    arguments: '--configuration $(buildConfiguration)'
 
 - task: NuGetCommand@2
   displayName: .net Core Pack
