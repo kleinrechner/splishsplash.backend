@@ -22,24 +22,46 @@ steps:
 
 # do this after other tasks such as building
 - task: DotNetCoreCLI@2
+  displayName: .net Core Test
   inputs:
     command: test
-    projects: 'Tests/**/*.csproj'
+    projects: '**/*Test/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+
+- task: NuGetCommand@2
+  displayName: .net Core Pack
+  inputs:
+    command: pack
+    packagesToPack: '**/*.csproj'
+
+# do this near the end of your pipeline in most cases
+- script: dotnet pack /p:PackageVersion=$(version)  # define version variable elsewhere in your pipeline
+- task: NuGetAuthenticate@0
+  displayName: Get Credentials of NuGet-Feed
+  input:
+    nuGetServiceConnections: 'SplishSplashFeed'
+- task: NuGetCommand@2
+  displayName: Push to NuGet-Feed
+  inputs:
+    command: push
+    nuGetFeedType: external
+    publishFeedCredentials: 'SplishSplashFeed'
+    versioningScheme: byEnvVar
+    versionEnvVar: version
 
 - task: DotNetCoreCLI@2
   displayName: .net Core Publish Linux-ARM
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--runtime linux-arm --self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '--runtime linux-arm --self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\arm'
     zipAfterPublish: True
 
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
 - task: PublishBuildArtifacts@1
   displayName: .net Core Create Artifacts Linux-ARM
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)\arm' 
     artifactName: 'splishsplashbackend-arm'
 
 - task: DotNetCoreCLI@2
@@ -47,12 +69,12 @@ steps:
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '--self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)\x86'
     zipAfterPublish: True
 
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
 - task: PublishBuildArtifacts@1
   displayName: .net Core Create Artifacts
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)\x86' 
     artifactName: 'splishsplashbackend'
