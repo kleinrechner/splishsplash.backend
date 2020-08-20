@@ -9,7 +9,7 @@ using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
 namespace Kleinrechner.SplishSplash.Backend.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class GpioController : ControllerBase
     {
         private readonly ILogger<GpioController> _logger;

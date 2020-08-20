@@ -32,11 +32,11 @@ namespace Kleinrechner.SplishSplash.Backend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddOptions();
-            
-            services.AddControllers();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen();
+
+            services.AddControllers();
 
             GpioService.Infrastructure.Startup.ConfigureServices(services, Configuration);
             HubClientBackgroundService.Infrastructure.Startup.ConfigureServices(services, Configuration);
@@ -61,7 +61,6 @@ namespace Kleinrechner.SplishSplash.Backend
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "SplishSplash Backend API V1");
-                c.RoutePrefix = string.Empty;  // Set Swagger UI at apps root
             });
 
             app.UseRouting();
@@ -71,6 +70,17 @@ namespace Kleinrechner.SplishSplash.Backend
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                endpoints.MapGet("/index.html", async context =>
+                {
+                    await context.Response.WriteAsync($"Welcome to SplishSplash.Backend{Environment.NewLine}" +
+                                                      $"Assembly {this.GetType().Assembly.GetName().Name}{Environment.NewLine}" +
+                                                      $"Version {this.GetType().Assembly.GetName().Version}{Environment.NewLine}" +
+                                                      $".NET Core {Environment.Version}{Environment.NewLine}" +
+                                                      $"Environment.OSVersion: {Environment.OSVersion}{Environment.NewLine}" +
+                                                      $"Environment.Is64BitOperatingSystem: {Environment.Is64BitOperatingSystem}{Environment.NewLine}" +
+                                                      $"Environment.Is64BitProcess: {Environment.Is64BitProcess}", Encoding.UTF8);
+                });
             });
         }
     }
