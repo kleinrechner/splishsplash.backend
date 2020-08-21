@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using Castle.Core.Logging;
 using FluentAssertions;
-using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -71,7 +71,7 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
             // Assert
             allGpioPinWrapper.Should().NotBeNullOrEmpty()
                 .And.NotContainNulls()
-                .And.OnlyHaveUniqueItems(x => x.PhysicalPinNumber);
+                .And.OnlyHaveUniqueItems(x => x.GpioPinNumber);
         }
 
         private IGpioPinWrapperFactory PrepareGpioPinWrapperFactory()

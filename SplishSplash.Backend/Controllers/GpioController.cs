@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 
 namespace Kleinrechner.SplishSplash.Backend.Controllers
 {

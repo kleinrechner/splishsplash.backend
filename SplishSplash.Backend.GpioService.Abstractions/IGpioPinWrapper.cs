@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Unosquare.RaspberryIO.Abstractions;
 
-namespace Kleinrechner.SplishSplash.Backend.GpioService.Contract
+namespace Kleinrechner.SplishSplash.Backend.GpioService.Abstractions
 {
     public interface IGpioPinWrapper
     {

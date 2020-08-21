@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Abstractions;
@@ -26,7 +26,7 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
             _gpioPinWrapperLogger = gpioPinWrapperLogger;
             _logger = logger;
 
-#if RELEASE
+#if LINUX_ARM
             Pi.Init<BootstrapWiringPi>();
 #endif
         }
@@ -55,7 +55,7 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
 
         private IGpioPinWrapper GetGpioPinWrapper(BcmPin bcmPin)
         {
-#if RELEASE
+#if LINUX_ARM
             return new GpioPinWrapper(bcmPin, _gpioPinWrapperLogger);
 #else
             return new DummyGpioPinWrapper(bcmPin, _gpioPinWrapperLogger);

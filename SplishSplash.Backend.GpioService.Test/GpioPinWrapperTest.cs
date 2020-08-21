@@ -24,11 +24,12 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
         public void GpioWrapper_WriteValue()
         {
             // Arrange
-            var logger = new Mock<ILogger<GpioPinWrapper>>();
-            var gpioPinWrapper = new DummyGpioPinWrapper(BcmPin.Gpio00, logger.Object);
-            gpioPinWrapper.Value = false;
-            gpioPinWrapper.Mode = GpioPinDriveMode.Input;
             var value = true;
+
+            var logger = new Mock<ILogger<GpioPinWrapper>>();
+            var gpioPinWrapper = new DummyGpioPinWrapper(BcmPin.Gpio00, logger.Object)
+                .SetMode(GpioPinDriveMode.Input)
+                .SetValue(!value);
 
             // Act
             gpioPinWrapper.WriteOutput(value);

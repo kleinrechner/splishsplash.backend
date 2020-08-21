@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Kleinrechner.SplishSplash.Backend.GpioService;
-using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Serilog;
 

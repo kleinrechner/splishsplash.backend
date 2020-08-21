@@ -29,8 +29,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SplishSplash.Backend.GpioService.Contract\SplishSplash.Backend.GpioService.Contract.csproj" />
-    <ProjectReference Include="..\SplishSplash.Backend.HubClientBackendService.Contract\SplishSplash.Backend.HubClientBackgroundService.Contract.csproj" />
+    <ProjectReference Include="..\SplishSplash.Backend.GpioService.Abstractions\SplishSplash.Backend.GpioService.Abstractions.csproj" />
+    <ProjectReference Include="..\SplishSplash.Backend.HubClientBackendService.Abstractions\SplishSplash.Backend.HubClientBackgroundService.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

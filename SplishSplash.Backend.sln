@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend", "Spl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{C642DFF0-62B7-4E05-BE95-A3D65C8748B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.GpioService.Contract", "SplishSplash.Backend.GpioService.Contract\SplishSplash.Backend.GpioService.Contract.csproj", "{D8BDC060-EB30-4345-9681-03E2225A5983}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.GpioService.Abstractions", "SplishSplash.Backend.GpioService.Abstractions\SplishSplash.Backend.GpioService.Abstractions.csproj", "{D8BDC060-EB30-4345-9681-03E2225A5983}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.GpioService", "SplishSplash.Backend.GpioService\SplishSplash.Backend.GpioService.csproj", "{265A9ABB-23F7-4C7D-81CF-07A5F8377E78}"
 EndProject
@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{82F86C87
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.GpioService.Test", "SplishSplash.Backend.GpioService.Test\SplishSplash.Backend.GpioService.Test.csproj", "{2DE13179-37AD-4F9F-BC78-88CE4FD11FB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.HubClientBackgroundService.Contract", "SplishSplash.Backend.HubClientBackendService.Contract\SplishSplash.Backend.HubClientBackgroundService.Contract.csproj", "{862096E2-FC65-4D08-8B8D-1C7E08FD3C81}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.HubClientBackgroundService.Abstractions", "SplishSplash.Backend.HubClientBackendService.Abstractions\SplishSplash.Backend.HubClientBackgroundService.Abstractions.csproj", "{862096E2-FC65-4D08-8B8D-1C7E08FD3C81}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.HubClientBackgroundService", "SplishSplash.Backend.HubClientBackendService\SplishSplash.Backend.HubClientBackgroundService.csproj", "{2022504B-7D28-4DBB-A847-47EB62D2B67E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.HubClientBackgroundService", "SplishSplash.Backend.HubClientBackendService\SplishSplash.Backend.HubClientBackgroundService.csproj", "{2022504B-7D28-4DBB-A847-47EB62D2B67E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

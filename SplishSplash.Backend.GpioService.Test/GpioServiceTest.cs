@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
-using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -32,10 +32,8 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
 
             var oldGpioPins = Enumerable.Range(0, 31)
                 .Select(x => new DummyGpioPinWrapper((BcmPin) x, gpioPinWrapperLogger.Object)
-                {
-                    Mode = GpioPinDriveMode.Input,
-                    Value = true
-                })
+                    .SetMode(GpioPinDriveMode.Input)
+                    .SetValue(true))
                 .ToList();
 
             var gpioPinWrapperFactory = new Mock<IGpioPinWrapperFactory>();
@@ -59,10 +57,8 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
             var gpioPinWrapperLogger = new Mock<ILogger<GpioPinWrapper>>();
             var bcmPinNumber = 10;
             var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, gpioPinWrapperLogger.Object)
-            {
-                Mode = GpioPinDriveMode.Input,
-                Value = true
-            };
+                .SetMode(GpioPinDriveMode.Input)
+                .SetValue(true);
 
             var gpioPinWrapperFactory = new Mock<IGpioPinWrapperFactory>();
             gpioPinWrapperFactory.Setup(x => x.Get(bcmPinNumber)).Returns(oldGpioPin);
@@ -86,10 +82,8 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
             var bcmPinNumber = 10;
             var value = true;
             var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, gpioPinWrapperLogger.Object)
-            {
-                Mode = GpioPinDriveMode.Input,
-                Value = !value
-            };
+                .SetMode(GpioPinDriveMode.Input)
+                .SetValue(!value);
 
             var gpioPinWrapperFactory = new Mock<IGpioPinWrapperFactory>();
             gpioPinWrapperFactory.Setup(x => x.Get(bcmPinNumber)).Returns(oldGpioPin);
@@ -113,10 +107,8 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
             var bcmPinNumber = 10;
             var value = false;
             var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, gpioPinWrapperLogger.Object)
-            {
-                Mode = GpioPinDriveMode.Input,
-                Value = !value
-            };
+                .SetMode(GpioPinDriveMode.Input)
+                .SetValue(!value);
 
             var gpioPinWrapperFactory = new Mock<IGpioPinWrapperFactory>();
             gpioPinWrapperFactory.Setup(x => x.Get(bcmPinNumber)).Returns(oldGpioPin);

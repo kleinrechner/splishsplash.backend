@@ -10,6 +10,7 @@
     <PackageProjectUrl>https://kleinrechner.visualstudio.com/SplishSplash</PackageProjectUrl>
     <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <UserSecretsId>210070a7-dec9-4184-ac3d-e1199235f819</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

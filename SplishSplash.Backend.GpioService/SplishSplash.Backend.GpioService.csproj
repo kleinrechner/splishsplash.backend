@@ -19,7 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SplishSplash.Backend.GpioService.Contract\SplishSplash.Backend.GpioService.Contract.csproj" />
+    <ProjectReference Include="..\SplishSplash.Backend.GpioService.Abstractions\SplishSplash.Backend.GpioService.Abstractions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,35 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Kleinrechner.SplishSplash.Backend.GpioService.Contract;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Microsoft.Extensions.Logging;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Abstractions;
 
 namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
 {
-    public class GpioPinWrapper : IGpioPinWrapper
+    public class GpioPinWrapper : DummyGpioPinWrapper
     {
         #region Fields
 
-        private readonly ILogger<GpioPinWrapper> _logger;
         private readonly IGpioPin _gpioPin;
 
-        public int GpioPinNumber => _gpioPin.BcmPinNumber;
+        public override int GpioPinNumber => _gpioPin.BcmPinNumber;
 
-        public int PhysicalPinNumber => _gpioPin.PhysicalPinNumber;
+        public override int PhysicalPinNumber => _gpioPin.PhysicalPinNumber;
 
-        public bool Value => _gpioPin.Value;
+        public override bool Value => _gpioPin.Value;
 
-        public GpioPinDriveMode Mode => _gpioPin.PinMode;
+        public override GpioPinDriveMode Mode => _gpioPin.PinMode;
 
         #endregion
 
         #region Ctor
 
-        public GpioPinWrapper(BcmPin bcmPin, ILogger<GpioPinWrapper> logger)
+        public GpioPinWrapper(BcmPin bcmPin, ILogger<GpioPinWrapper> logger) : base(bcmPin, logger)
         {
-            _logger = logger;
             _gpioPin = Pi.Gpio[bcmPin];
         }
 
@@ -37,19 +35,10 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
 
         #region Methods
 
-        public void WriteOutput(bool value)
+        protected override void SetGpioPinOutputValue(bool value)
         {
-            try
-            {
-                _gpioPin.PinMode = GpioPinDriveMode.Output;
-                _gpioPin.Write(value);
-                _logger.LogInformation($"Set Pin {GpioPinNumber} to Mode {Mode} at Value {Value}");
-            }
-            catch (Exception e)
-            {
-                _logger.LogError(e, $"Failed to set Pin {GpioPinNumber} to Mode {GpioPinDriveMode.Output} at Value {value}");
-                throw;
-            }
+            _gpioPin.PinMode = GpioPinDriveMode.Output;
+            _gpioPin.Write(value);
         }
 
         #endregion

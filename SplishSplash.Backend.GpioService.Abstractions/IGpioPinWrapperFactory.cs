@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Kleinrechner.SplishSplash.Backend.GpioService.Contract
+namespace Kleinrechner.SplishSplash.Backend.GpioService.Abstractions
 {
     public interface IGpioPinWrapperFactory
     {
