@@ -27,20 +27,20 @@ steps:
     projects: '**/*Test/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-#- task: DotNetCoreCLI@2
-#  displayName: .net Core Pack
-#  inputs:
-#    command: 'pack'
-#    packagesToPack: '**/*.csproj'
-#    versioningScheme: 'off'
+- task: DotNetCoreCLI@2
+  displayName: .net Core Pack
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
 
-#- task: DotNetCoreCLI@2
-#  displayName: .net Core Push
-#  inputs:
-#    command: 'push'
-#    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-#    nuGetFeedType: 'internal'
-#    publishVstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/57bc1d8a-685d-4ec7-a0fd-d8d53f89c917'
+- task: DotNetCoreCLI@2
+  displayName: .net Core Push
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/57bc1d8a-685d-4ec7-a0fd-d8d53f89c917'
 
 - task: DotNetCoreCLI@2
   displayName: .net Core Publish Linux-ARM
