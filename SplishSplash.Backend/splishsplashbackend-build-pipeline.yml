@@ -27,26 +27,20 @@ steps:
 #    projects: '**/*Test/*.csproj'
 #    arguments: '--configuration $(buildConfiguration)'
 
-- task: NuGetCommand@2
+- task: DotNetCoreCLI@2
   displayName: .net Core Pack
   inputs:
-    command: pack
+    command: 'pack'
     packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
 
-# The last task is a nuget command, nuget push
-# This will push any .nupkg files to the 'TestFeed' artifact feed
-# allowPackageConflicts allows us to build the same version and not throw an error when trying to push
-# instead it just ingores the latest package unless the version changes
-- task: NuGetCommand@2
-  displayName: 'nuget push'
+- task: DotNetCoreCLI@2
+  displayName: .net Core Push
   inputs:
     command: 'push'
-    feedsToUse: 'select'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: 'SplishSplashFeed'
-    versioningScheme: 'off'
-    allowPackageConflicts: true
+    publishVstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/57bc1d8a-685d-4ec7-a0fd-d8d53f89c917'
 
 - task: DotNetCoreCLI@2
   displayName: .net Core Publish Linux-ARM
