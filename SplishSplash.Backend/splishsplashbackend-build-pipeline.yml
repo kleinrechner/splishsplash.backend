@@ -27,12 +27,20 @@ steps:
     projects: '**/*Test/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: 'SplishSplash.Backend.HubClientBackendService.Abstractions/SplishSplash.Backend.HubClientBackgroundService.Abstractions.csproj'
+    nobuild: true
+    versioningScheme: 'off'
 
 - task: NuGetCommand@2
   displayName: NuGet Push
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.BuildDirectory)/**/*.nupkg;!$(Build.BuildDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/d8ca8f72-a3c7-4dc5-aeed-8ac7e6f5a3fd'
     allowPackageConflicts: true
