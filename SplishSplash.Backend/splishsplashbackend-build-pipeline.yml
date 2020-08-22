@@ -29,26 +29,10 @@ steps:
 
 
 - task: NuGetCommand@2
-  displayName: Nuget Pack SplishSplash.Backend.GpioService.Abstractions
-  inputs:
-    command: 'pack'
-    packDestination: '$(Build.ArtifactStagingDirectory)/nuget/'
-    packagesToPack: '/SplishSplash.Backend.GpioService.Abstractions/SplishSplash.Backend.GpioService.Abstractions.csproj'
-    versioningScheme: 'off'
-
-- task: NuGetCommand@2
-  displayName: Nuget Pack SplishSplash.Backend.HubClientBackgroundService.Abstractions
-  inputs:
-    command: 'pack'
-    packDestination: '$(Build.ArtifactStagingDirectory)/nuget/'
-    packagesToPack: '/SplishSplash.Backend.HubClientBackgroundService.Abstractions/SplishSplash.Backend.HubClientBackgroundService.Abstractions.csproj'
-    versioningScheme: 'off'
-
-- task: NuGetCommand@2
   displayName: NuGet Push
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/nuget/*.nupkg'
+    packagesToPush: '$(Build.BuildDirectory)/**/*.nupkg;!$(Build.BuildDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/d8ca8f72-a3c7-4dc5-aeed-8ac7e6f5a3fd'
     allowPackageConflicts: true
