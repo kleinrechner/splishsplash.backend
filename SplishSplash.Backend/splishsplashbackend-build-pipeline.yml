@@ -30,15 +30,15 @@ steps:
 - task: ArchiveFiles@2
   displayName: Copy NuGet-Packages to Artifacts
   inputs:
-    rootFolderOrFile: '$(Build.BinariesDirectory)**/*.nupkg'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/'
+    rootFolderOrFile: '$(Build.BinariesDirectory)/**/*.nupkg'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/nuget/'
     replaceExistingArchive: true
 
 - task: NuGetCommand@2
   displayName: NuGet Push
   inputs:
     command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/nuget/*.nupkg'
     nuGetFeedType: 'internal'
     publishVstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/d8ca8f72-a3c7-4dc5-aeed-8ac7e6f5a3fd'
     allowPackageConflicts: true
