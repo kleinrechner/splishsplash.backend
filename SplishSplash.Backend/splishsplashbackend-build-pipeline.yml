@@ -45,6 +45,15 @@ steps:
     nobuild: true
     versioningScheme: 'off'
 
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack SplishSplash.Backend.Authentication"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: 'SplishSplash.Backend.Authentication/SplishSplash.Backend.Authentication.csproj'
+    nobuild: true
+    versioningScheme: 'off'
+
 - task: NuGetCommand@2
   displayName: NuGet Push
   inputs:

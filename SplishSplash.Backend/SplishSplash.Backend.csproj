@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SplishSplash.Backend.Authentication\SplishSplash.Backend.Authentication.csproj" />
+    <ProjectReference Include="..\SplishSplash.Backend.EventPublisher\SplishSplash.Backend.EventPublisher.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.GpioService\SplishSplash.Backend.GpioService.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.HubClientBackendService\SplishSplash.Backend.HubClientBackgroundService.csproj" />
   </ItemGroup>

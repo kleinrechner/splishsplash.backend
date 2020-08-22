@@ -4,7 +4,9 @@ using Castle.Core.Logging;
 using FluentAssertions;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Moq;
 using SplishSplash.Backend.EventPublisher.Abstractions;
@@ -77,11 +79,13 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
 
         private IGpioPinWrapperFactory PrepareGpioPinWrapperFactory()
         {
+            var webHostEnvironment = new Mock<IWebHostEnvironment>();
             var eventProvider = new Mock<IEventPublisher>();
             var gpioPinWrapperLogger = new Mock<ILogger<GpioPinWrapper>>();
             var logger = new Mock<ILogger<GpioPinWrapperFactory>>();
 
             var services = new ServiceCollection();
+            services.AddTransient<IWebHostEnvironment>(provider => webHostEnvironment.Object);
             services.AddTransient<IEventPublisher>(provider => eventProvider.Object);
             services.AddTransient<ILogger<GpioPinWrapper>>(provider => gpioPinWrapperLogger.Object);
             services.AddTransient<ILogger<GpioPinWrapperFactory>>(provider => logger.Object);

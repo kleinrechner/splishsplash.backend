@@ -9,6 +9,7 @@
     <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageId>Kleinrechner.SplishSplash.Backend.GpioService.Abstractions</PackageId>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Kleinrechner.SplishSplash.Backend.GpioService;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.OpenApi.Models;
 using Serilog;
 
 namespace Kleinrechner.SplishSplash.Backend
@@ -34,12 +35,30 @@ namespace Kleinrechner.SplishSplash.Backend
             services.AddOptions();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(c =>
+            {
+                // configure SwaggerDoc and others
+
+                // add Basic Authentication
+                var basicSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "basic",
+                    Reference = new OpenApiReference { Id = "BasicAuth", Type = ReferenceType.SecurityScheme }
+                };
+                c.AddSecurityDefinition(basicSecurityScheme.Reference.Id, basicSecurityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {basicSecurityScheme, new string[] { }}
+                });
+            });
 
             services.AddControllers();
 
+            Authentication.Infrastructure.Startup.ConfigureServices(services, Configuration);
             GpioService.Infrastructure.Startup.ConfigureServices(services, Configuration);
             HubClientBackgroundService.Infrastructure.Startup.ConfigureServices(services, Configuration);
+            EventPublisher.Infrastructure.Startup.ConfigureServices(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,13 +84,13 @@ namespace Kleinrechner.SplishSplash.Backend
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            Authentication.Infrastructure.Startup.Configure(app, env);
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
 
-                endpoints.MapGet("/index.html", async context =>
+                endpoints.MapGet("/", async context =>
                 {
                     await context.Response.WriteAsync($"Welcome to SplishSplash.Backend{Environment.NewLine}" +
                                                       $"Assembly {this.GetType().Assembly.GetName().Name}{Environment.NewLine}" +

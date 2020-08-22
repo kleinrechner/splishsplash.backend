@@ -19,6 +19,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.HubCli
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.HubClientBackgroundService", "SplishSplash.Backend.HubClientBackendService\SplishSplash.Backend.HubClientBackgroundService.csproj", "{2022504B-7D28-4DBB-A847-47EB62D2B67E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.Authentication", "SplishSplash.Backend.Authentication\SplishSplash.Backend.Authentication.csproj", "{FEFF1308-5755-40A9-8863-B3364553AE94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.EventPublisher.Abstractions", "SplishSplash.Backend.EventPublisher.Abstractions\SplishSplash.Backend.EventPublisher.Abstractions.csproj", "{DBF61EAF-3170-4347-A26A-B35417F1CFA6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.EventPublisher", "SplishSplash.Backend.EventPublisher\SplishSplash.Backend.EventPublisher.csproj", "{C202F468-687B-4CB1-A35B-B9F124A62882}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +55,18 @@ Global
 		{2022504B-7D28-4DBB-A847-47EB62D2B67E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2022504B-7D28-4DBB-A847-47EB62D2B67E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2022504B-7D28-4DBB-A847-47EB62D2B67E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEFF1308-5755-40A9-8863-B3364553AE94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEFF1308-5755-40A9-8863-B3364553AE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEFF1308-5755-40A9-8863-B3364553AE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEFF1308-5755-40A9-8863-B3364553AE94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBF61EAF-3170-4347-A26A-B35417F1CFA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBF61EAF-3170-4347-A26A-B35417F1CFA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBF61EAF-3170-4347-A26A-B35417F1CFA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBF61EAF-3170-4347-A26A-B35417F1CFA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C202F468-687B-4CB1-A35B-B9F124A62882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C202F468-687B-4CB1-A35B-B9F124A62882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C202F468-687B-4CB1-A35B-B9F124A62882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C202F468-687B-4CB1-A35B-B9F124A62882}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -59,6 +77,9 @@ Global
 		{2DE13179-37AD-4F9F-BC78-88CE4FD11FB1} = {82F86C87-55C2-4C42-9397-27C16E50095E}
 		{862096E2-FC65-4D08-8B8D-1C7E08FD3C81} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 		{2022504B-7D28-4DBB-A847-47EB62D2B67E} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{FEFF1308-5755-40A9-8863-B3364553AE94} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{DBF61EAF-3170-4347-A26A-B35417F1CFA6} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{C202F468-687B-4CB1-A35B-B9F124A62882} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4312BFF-A6A7-458F-8607-F1F326454229}
