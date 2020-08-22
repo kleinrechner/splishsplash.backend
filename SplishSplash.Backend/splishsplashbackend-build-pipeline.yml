@@ -45,12 +45,6 @@ steps:
     nobuild: true
     versioningScheme: 'off'
 
-- task: PublishBuildArtifacts@1
-  displayName: .net Core Create NuGet-Artifacts
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/**/*.nupkg' 
-    artifactName: 'splishsplashbackend-nuget'
-
 - task: NuGetCommand@2
   displayName: NuGet Push
   inputs:
