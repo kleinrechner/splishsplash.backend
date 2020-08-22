@@ -8,6 +8,7 @@ using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
+using SplishSplash.Backend.EventPublisher.Abstractions;
 using Unosquare.RaspberryIO.Abstractions;
 using Xunit;
 using Range = Moq.Range;
@@ -28,10 +29,11 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
         public void ClearAll()
         {
             // Arrange
+            var eventPublisher = new Mock<IEventPublisher>();
             var gpioPinWrapperLogger = new Mock<ILogger<GpioPinWrapper>>();
 
             var oldGpioPins = Enumerable.Range(0, 31)
-                .Select(x => new DummyGpioPinWrapper((BcmPin) x, gpioPinWrapperLogger.Object)
+                .Select(x => new DummyGpioPinWrapper((BcmPin) x, eventPublisher.Object, gpioPinWrapperLogger.Object)
                     .SetMode(GpioPinDriveMode.Input)
                     .SetValue(true))
                 .ToList();
@@ -54,9 +56,11 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
         public void ClearGpioPin()
         {
             // Arrange
+            var eventPublisher = new Mock<IEventPublisher>();
             var gpioPinWrapperLogger = new Mock<ILogger<GpioPinWrapper>>();
+
             var bcmPinNumber = 10;
-            var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, gpioPinWrapperLogger.Object)
+            var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, eventPublisher.Object, gpioPinWrapperLogger.Object)
                 .SetMode(GpioPinDriveMode.Input)
                 .SetValue(true);
 
@@ -78,10 +82,11 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
         public void GpioPin_Write_High()
         {
             // Arrange
+            var eventPublisher = new Mock<IEventPublisher>();
             var gpioPinWrapperLogger = new Mock<ILogger<GpioPinWrapper>>();
             var bcmPinNumber = 10;
             var value = true;
-            var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, gpioPinWrapperLogger.Object)
+            var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, eventPublisher.Object, gpioPinWrapperLogger.Object)
                 .SetMode(GpioPinDriveMode.Input)
                 .SetValue(!value);
 
@@ -103,10 +108,11 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
         public void GpioPin_Write_Low()
         {
             // Arrange
+            var eventPublisher = new Mock<IEventPublisher>();
             var gpioPinWrapperLogger = new Mock<ILogger<GpioPinWrapper>>();
             var bcmPinNumber = 10;
             var value = false;
-            var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, gpioPinWrapperLogger.Object)
+            var oldGpioPin = new DummyGpioPinWrapper((BcmPin)bcmPinNumber, eventPublisher.Object, gpioPinWrapperLogger.Object)
                 .SetMode(GpioPinDriveMode.Input)
                 .SetValue(!value);
 

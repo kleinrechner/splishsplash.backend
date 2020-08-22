@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Microsoft.Extensions.Logging;
+using SplishSplash.Backend.EventPublisher.Abstractions;
 using Unosquare.RaspberryIO.Abstractions;
 
 namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
@@ -11,6 +12,7 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
     {
         #region Fields
 
+        private readonly IEventPublisher _eventPublisher;
         private readonly ILogger<GpioPinWrapper> _logger;
 
         private int _gpioPinNumber;
@@ -30,8 +32,9 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
 
         #region Ctor
 
-        public DummyGpioPinWrapper(BcmPin bcmPin, ILogger<GpioPinWrapper> logger)
+        public DummyGpioPinWrapper(BcmPin bcmPin, IEventPublisher eventPublisher, ILogger<GpioPinWrapper> logger)
         {
+            _eventPublisher = eventPublisher;
             _logger = logger;
 
             _gpioPinNumber = (int) bcmPin;
@@ -47,6 +50,8 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
             {
                 SetGpioPinOutputValue(value);
                 _logger.LogInformation($"Set Pin {GpioPinNumber} to Mode {Mode} at Value {Value}");
+
+                _eventPublisher.Publish(new GpioPinChangedEvent(this));
             }
             catch (Exception e)
             {

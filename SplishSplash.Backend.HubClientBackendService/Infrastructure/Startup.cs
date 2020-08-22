@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SplishSplash.Backend.EventPublisher.Abstractions;
 
 namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Infrastructure
 {
@@ -21,7 +23,11 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Infrastru
         {
             services.Configure<HubClientBackgroundServiceSettings>(configuration.GetSection(HubClientBackgroundServiceSettings.Position));
 
-            services.AddHostedService<HubClientBackgroundService>();
+            services.AddSingleton<HubClientBackgroundService>();
+            services.AddTransient<IConsumer<GpioPinChangedEvent>>(x =>
+                x.GetRequiredService<HubClientBackgroundService>());
+            
+            services.AddHostedService<HubClientBackgroundService>(x => x.GetRequiredService<HubClientBackgroundService>());
         }
 
         #endregion

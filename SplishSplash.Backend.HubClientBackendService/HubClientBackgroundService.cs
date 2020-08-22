@@ -9,10 +9,11 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SplishSplash.Backend.EventPublisher.Abstractions;
 
 namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 {
-    public class HubClientBackgroundService : BackgroundService, ISplishSplashHubClient
+    public class HubClientBackgroundService : BackgroundService, ISplishSplashHubClient, IConsumer<GpioPinChangedEvent>
     {
         #region Fields
 
@@ -66,5 +67,9 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
         #endregion
 
+        public void HandleEvent(GpioPinChangedEvent eventMessage)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

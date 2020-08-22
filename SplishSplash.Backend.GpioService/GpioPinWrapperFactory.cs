@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
+using SplishSplash.Backend.EventPublisher.Abstractions;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Abstractions;
 using Unosquare.WiringPi;
@@ -14,6 +15,7 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
     {
         #region Fields
 
+        private readonly IEventPublisher _eventPublisher;
         private readonly ILogger<GpioPinWrapperFactory> _logger;
         private readonly ILogger<GpioPinWrapper> _gpioPinWrapperLogger;
 
@@ -21,8 +23,9 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
 
         #region Ctor
 
-        public GpioPinWrapperFactory(ILogger<GpioPinWrapper> gpioPinWrapperLogger, ILogger<GpioPinWrapperFactory> logger)
+        public GpioPinWrapperFactory(IEventPublisher eventPublisher, ILogger<GpioPinWrapper> gpioPinWrapperLogger, ILogger<GpioPinWrapperFactory> logger)
         {
+            _eventPublisher = eventPublisher;
             _gpioPinWrapperLogger = gpioPinWrapperLogger;
             _logger = logger;
 
@@ -56,9 +59,9 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
         private IGpioPinWrapper GetGpioPinWrapper(BcmPin bcmPin)
         {
 #if LINUX_ARM
-            return new GpioPinWrapper(bcmPin, _gpioPinWrapperLogger);
+            return new GpioPinWrapper(bcmPin, _eventPublisher, _gpioPinWrapperLogger);
 #else
-            return new DummyGpioPinWrapper(bcmPin, _gpioPinWrapperLogger);
+            return new DummyGpioPinWrapper(bcmPin, _eventPublisher, _gpioPinWrapperLogger);
 #endif
         }
 

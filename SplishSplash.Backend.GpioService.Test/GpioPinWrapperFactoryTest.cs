@@ -7,6 +7,7 @@ using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Moq;
+using SplishSplash.Backend.EventPublisher.Abstractions;
 using Xunit;
 
 namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
@@ -76,10 +77,12 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Test
 
         private IGpioPinWrapperFactory PrepareGpioPinWrapperFactory()
         {
+            var eventProvider = new Mock<IEventPublisher>();
             var gpioPinWrapperLogger = new Mock<ILogger<GpioPinWrapper>>();
             var logger = new Mock<ILogger<GpioPinWrapperFactory>>();
 
             var services = new ServiceCollection();
+            services.AddTransient<IEventPublisher>(provider => eventProvider.Object);
             services.AddTransient<ILogger<GpioPinWrapper>>(provider => gpioPinWrapperLogger.Object);
             services.AddTransient<ILogger<GpioPinWrapperFactory>>(provider => logger.Object);
             services.AddTransient<IGpioPinWrapperFactory, GpioPinWrapperFactory>();

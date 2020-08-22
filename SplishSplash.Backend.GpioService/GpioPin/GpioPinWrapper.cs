@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Microsoft.Extensions.Logging;
+using SplishSplash.Backend.EventPublisher.Abstractions;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Abstractions;
 
@@ -26,7 +27,7 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
 
         #region Ctor
 
-        public GpioPinWrapper(BcmPin bcmPin, ILogger<GpioPinWrapper> logger) : base(bcmPin, logger)
+        public GpioPinWrapper(BcmPin bcmPin, IEventPublisher eventPublisher, ILogger<GpioPinWrapper> logger) : base(bcmPin, eventPublisher, logger)
         {
             _gpioPin = Pi.Gpio[bcmPin];
         }
