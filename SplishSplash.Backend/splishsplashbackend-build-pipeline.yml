@@ -58,7 +58,7 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: .net Core Create NuGet-Artifacts
   inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg' 
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/**/*.nupkg' 
     artifactName: 'splishsplashbackend-nuget'
 
 - task: DotNetCoreCLI@2
