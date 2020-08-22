@@ -27,7 +27,15 @@ steps:
     projects: '**/*Test/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
+- task: ArchiveFiles@2
+  displayName: Copy NuGet-Packages to Artifacts
+  inputs:
+    rootFolderOrFile: '$(Build.BinariesDirectory)**/*.nupkg'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/'
+    replaceExistingArchive: true
+
 - task: NuGetCommand@2
+  displayName: NuGet Push
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
