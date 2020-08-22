@@ -4,6 +4,8 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.GpioService.GpioPin;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using SplishSplash.Backend.EventPublisher.Abstractions;
 using Unosquare.RaspberryIO;
 using Unosquare.RaspberryIO.Abstractions;
@@ -15,6 +17,7 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
     {
         #region Fields
 
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IEventPublisher _eventPublisher;
         private readonly ILogger<GpioPinWrapperFactory> _logger;
         private readonly ILogger<GpioPinWrapper> _gpioPinWrapperLogger;
@@ -23,15 +26,17 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
 
         #region Ctor
 
-        public GpioPinWrapperFactory(IEventPublisher eventPublisher, ILogger<GpioPinWrapper> gpioPinWrapperLogger, ILogger<GpioPinWrapperFactory> logger)
+        public GpioPinWrapperFactory(IWebHostEnvironment webHostEnvironment, IEventPublisher eventPublisher, ILogger<GpioPinWrapper> gpioPinWrapperLogger, ILogger<GpioPinWrapperFactory> logger)
         {
+            _webHostEnvironment = webHostEnvironment;
             _eventPublisher = eventPublisher;
             _gpioPinWrapperLogger = gpioPinWrapperLogger;
             _logger = logger;
 
-#if LINUX_ARM
-            Pi.Init<BootstrapWiringPi>();
-#endif
+            if (_webHostEnvironment.IsProduction())
+            {
+                Pi.Init<BootstrapWiringPi>();
+            }
         }
 
         #endregion
@@ -58,11 +63,14 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
 
         private IGpioPinWrapper GetGpioPinWrapper(BcmPin bcmPin)
         {
-#if LINUX_ARM
-            return new GpioPinWrapper(bcmPin, _eventPublisher, _gpioPinWrapperLogger);
-#else
-            return new DummyGpioPinWrapper(bcmPin, _eventPublisher, _gpioPinWrapperLogger);
-#endif
+            if (_webHostEnvironment.IsProduction())
+            {
+                return new GpioPinWrapper(bcmPin, _eventPublisher, _gpioPinWrapperLogger);
+            }
+            else
+            {
+                return new DummyGpioPinWrapper(bcmPin, _eventPublisher, _gpioPinWrapperLogger);
+            }
         }
 
 #endregion
