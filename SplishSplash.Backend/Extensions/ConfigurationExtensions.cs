@@ -17,7 +17,7 @@ namespace Kleinrechner.SplishSplash.Backend.Extensions
 
                 foreach (var item in files)
                 {
-                    configurationBuilder.AddJsonFile(item, true);
+                    configurationBuilder.AddJsonFile(item, true, true);
                 }
             }
 

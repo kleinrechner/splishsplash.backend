@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions;
+using Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
     {
         #region Fields
 
+        private readonly ISettingsService _settingsService;
         private readonly IGpioService _gpioService;
         private readonly ILogger<HubClientBackgroundService> _logger;
         private readonly IOptions<HubClientBackgroundServiceSettings> _settings;
@@ -27,13 +29,15 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
         #region Ctor
 
-        public HubClientBackgroundService(IOptions<HubClientBackgroundServiceSettings> settings, 
+        public HubClientBackgroundService(IOptions<HubClientBackgroundServiceSettings> settings,
+                                            ISettingsService settingsService,
                                             IGpioService gpioService, 
                                             ILogger<HubClientBackgroundService> logger)
         {
             _settings = settings;
             _gpioService = gpioService;
             _logger = logger;
+            _settingsService = settingsService;
         }
 
         #endregion

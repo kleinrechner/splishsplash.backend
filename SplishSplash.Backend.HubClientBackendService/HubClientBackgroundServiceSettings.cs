@@ -6,7 +6,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 {
     public class HubClientBackgroundServiceSettings
     {
-        public const string Position = "HubClientBackgroundServiceSettings";
+        public const string SectionName = "HubClientBackgroundServiceSettings";
         
         public string HubUrl { get; set; }
         public string User { get; set; }

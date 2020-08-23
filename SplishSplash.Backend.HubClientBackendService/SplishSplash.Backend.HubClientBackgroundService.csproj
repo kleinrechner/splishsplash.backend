@@ -32,6 +32,7 @@
     <ProjectReference Include="..\SplishSplash.Backend.EventPublisher.Abstractions\SplishSplash.Backend.EventPublisher.Abstractions.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.GpioService.Abstractions\SplishSplash.Backend.GpioService.Abstractions.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.HubClientBackendService.Abstractions\SplishSplash.Backend.HubClientBackgroundService.Abstractions.csproj" />
+    <ProjectReference Include="..\SplishSplash.Backend.SettingsService.Abstractions\SplishSplash.Backend.SettingsService.Abstractions.csproj" />
   </ItemGroup>
 
 </Project>

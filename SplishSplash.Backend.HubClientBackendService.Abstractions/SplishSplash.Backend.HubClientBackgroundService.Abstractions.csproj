@@ -11,4 +11,8 @@
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SplishSplash.Backend.SettingsService.Abstractions\SplishSplash.Backend.SettingsService.Abstractions.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -26,7 +26,7 @@ namespace Kleinrechner.SplishSplash.Backend.Authentication.Infrastructure
             services.AddAuthentication("BasicAuthentication")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
-            services.Configure<AuthenticationSettings>(configuration.GetSection(AuthenticationSettings.Position));
+            services.Configure<AuthenticationSettings>(configuration.GetSection(AuthenticationSettings.SectionName));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

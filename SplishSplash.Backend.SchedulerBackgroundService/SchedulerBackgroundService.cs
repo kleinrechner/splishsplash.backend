@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -12,6 +13,7 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService
     {
         #region Fields
 
+        private readonly ISettingsService _settingsService;
         private readonly ILogger<SchedulerBackgroundService> _logger;
         private Timer _timer;
 
@@ -19,8 +21,9 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService
 
         #region Ctor
 
-        public SchedulerBackgroundService(ILogger<SchedulerBackgroundService> logger)
+        public SchedulerBackgroundService(ISettingsService settingsService, ILogger<SchedulerBackgroundService> logger)
         {
+            _settingsService = settingsService;
             _logger = logger;
         }
 

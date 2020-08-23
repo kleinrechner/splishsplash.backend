@@ -25,6 +25,7 @@
     <ProjectReference Include="..\SplishSplash.Backend.GpioService\SplishSplash.Backend.GpioService.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.HubClientBackendService\SplishSplash.Backend.HubClientBackgroundService.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.SchedulerBackgroundService\SplishSplash.Backend.SchedulerBackgroundService.csproj" />
+    <ProjectReference Include="..\SplishSplash.Backend.SettingsService\SplishSplash.Backend.SettingsService.csproj" />
   </ItemGroup>
 
 

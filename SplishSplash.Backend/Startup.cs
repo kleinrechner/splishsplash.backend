@@ -57,9 +57,10 @@ namespace Kleinrechner.SplishSplash.Backend
 
             Authentication.Infrastructure.Startup.ConfigureServices(services, Configuration);
             GpioService.Infrastructure.Startup.ConfigureServices(services, Configuration);
+            SettingsService.Infrastructure.Startup.ConfigureServices(services, Configuration);
+            EventPublisher.Infrastructure.Startup.ConfigureServices(services, Configuration);
             HubClientBackgroundService.Infrastructure.Startup.ConfigureServices(services, Configuration);
             SchedulerBackgroundService.Infrastructure.Startup.ConfigureServices(services, Configuration);
-            EventPublisher.Infrastructure.Startup.ConfigureServices(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

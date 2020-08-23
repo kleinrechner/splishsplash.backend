@@ -21,7 +21,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Infrastru
 
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<HubClientBackgroundServiceSettings>(configuration.GetSection(HubClientBackgroundServiceSettings.Position));
+            services.Configure<HubClientBackgroundServiceSettings>(configuration.GetSection(HubClientBackgroundServiceSettings.SectionName));
 
             services.AddSingleton<HubClientBackgroundService>();
             services.AddTransient<IConsumer<GpioPinChangedEvent>>(x =>

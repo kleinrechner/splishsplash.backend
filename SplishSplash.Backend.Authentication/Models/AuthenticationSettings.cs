@@ -6,7 +6,7 @@ namespace Kleinrechner.SplishSplash.Backend.Authentication.Models
 {
     public class AuthenticationSettings
     {
-        public const string Position = "AuthenticationSettings";
+        public const string SectionName = "AuthenticationSettings";
 
         public List<LoginUser> Users { get; set; }
     }
