@@ -17,8 +17,4 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.7" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SplishSplash.Backend.SchedulerBackgroundService.Abstractions\SplishSplash.Backend.SchedulerBackgroundService.Abstractions.csproj" />
-  </ItemGroup>
-
 </Project>
