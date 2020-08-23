@@ -25,11 +25,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.EventP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.EventPublisher", "SplishSplash.Backend.EventPublisher\SplishSplash.Backend.EventPublisher.csproj", "{C202F468-687B-4CB1-A35B-B9F124A62882}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.SchedulerBackgroundService", "SplishSplash.Backend.SchedulerBackgroundService\SplishSplash.Backend.SchedulerBackgroundService.csproj", "{F0416AC4-7066-47D7-BB51-86690EC3823F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.SchedulerBackgroundService", "SplishSplash.Backend.SchedulerBackgroundService\SplishSplash.Backend.SchedulerBackgroundService.csproj", "{F0416AC4-7066-47D7-BB51-86690EC3823F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.SettingsService.Abstractions", "SplishSplash.Backend.SettingsService.Abstractions\SplishSplash.Backend.SettingsService.Abstractions.csproj", "{88833983-83CB-48F2-A3A9-CBE1FF660F87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.SettingsService.Abstractions", "SplishSplash.Backend.SettingsService.Abstractions\SplishSplash.Backend.SettingsService.Abstractions.csproj", "{88833983-83CB-48F2-A3A9-CBE1FF660F87}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.SettingsService", "SplishSplash.Backend.SettingsService\SplishSplash.Backend.SettingsService.csproj", "{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.SettingsService", "SplishSplash.Backend.SettingsService\SplishSplash.Backend.SettingsService.csproj", "{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.Authentication.Abstractions", "SplishSplash.Backend.Authentication.Abstractions\SplishSplash.Backend.Authentication.Abstractions.csproj", "{748551FB-1763-495F-A97D-8982EB255C21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +87,10 @@ Global
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748551FB-1763-495F-A97D-8982EB255C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748551FB-1763-495F-A97D-8982EB255C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748551FB-1763-495F-A97D-8982EB255C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748551FB-1763-495F-A97D-8982EB255C21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +107,7 @@ Global
 		{F0416AC4-7066-47D7-BB51-86690EC3823F} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 		{88833983-83CB-48F2-A3A9-CBE1FF660F87} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{748551FB-1763-495F-A97D-8982EB255C21} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4312BFF-A6A7-458F-8607-F1F326454229}

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Kleinrechner.SplishSplash.Backend.Authentication.Models
+namespace Kleinrechner.SplishSplash.Backend.Authentication.Abstractions
 {
     public class LoginUser
     {
