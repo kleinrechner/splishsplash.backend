@@ -11,23 +11,34 @@ using Kleinrechner.SplishSplash.Backend.Authentication.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using IAuthenticationService = Kleinrechner.SplishSplash.Backend.Authentication.Abstractions.IAuthenticationService;
 
 namespace Kleinrechner.SplishSplash.Backend.Authentication
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        private readonly IOptions<AuthenticationSettings> _authenticationSettings;
+        #region Fields
+
+        private readonly IAuthenticationService _authenticationService;
+
+        #endregion
+
+        #region Ctor
 
         public BasicAuthenticationHandler(
-            IOptions<AuthenticationSettings> authenticationSettings,
+            IAuthenticationService authenticationService,
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock)
             : base(options, logger, encoder, clock)
         {
-            _authenticationSettings = authenticationSettings;
+            _authenticationService = authenticationService;
         }
+
+        #endregion
+
+        #region Methods
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
@@ -42,7 +53,7 @@ namespace Kleinrechner.SplishSplash.Backend.Authentication
                 var username = credentials[0];
                 var password = credentials[1].GetMD5Hash();
 
-                var loginUser = _authenticationSettings.Value.Users.FirstOrDefault(x =>
+                var loginUser = _authenticationService.GetLoginUsers().FirstOrDefault(x =>
                     x.LoginName.ToLower() == username.ToLower() && x.PasswordMD5Hash == password);
 
                 if (loginUser != null)
@@ -68,5 +79,7 @@ namespace Kleinrechner.SplishSplash.Backend.Authentication
                 return AuthenticateResult.Fail("Invalid Authorization Header");
             }
         }
+
+        #endregion
     }
 }

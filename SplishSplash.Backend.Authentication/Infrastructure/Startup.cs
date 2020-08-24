@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Http;
+using IAuthenticationService = Kleinrechner.SplishSplash.Backend.Authentication.Abstractions.IAuthenticationService;
 
 namespace Kleinrechner.SplishSplash.Backend.Authentication.Infrastructure
 {
@@ -27,6 +28,8 @@ namespace Kleinrechner.SplishSplash.Backend.Authentication.Infrastructure
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
             services.Configure<AuthenticationSettings>(configuration.GetSection(AuthenticationSettings.SectionName));
+
+            services.AddTransient<IAuthenticationService, Services.AuthenticationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
