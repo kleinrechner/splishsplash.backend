@@ -14,13 +14,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Kleinrechner.SplishSplash.Hub.Authentication" Version="1.0.0" />
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Serilog.Extensions.Hosting" Version="3.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SplishSplash.Backend.Authentication\SplishSplash.Backend.Authentication.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.EventPublisher\SplishSplash.Backend.EventPublisher.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.GpioService\SplishSplash.Backend.GpioService.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.HubClientBackendService\SplishSplash.Backend.HubClientBackgroundService.csproj" />

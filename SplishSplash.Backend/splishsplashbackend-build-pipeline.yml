@@ -13,6 +13,14 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/*.csproj'
+    feedsToUse: 'select'
+    vstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/d8ca8f72-a3c7-4dc5-aeed-8ac7e6f5a3fd'
+    includeNuGetOrg: true
+
+- task: DotNetCoreCLI@2
   displayName: .net Core Build Projects
   inputs:
     command: build

@@ -55,7 +55,7 @@ namespace Kleinrechner.SplishSplash.Backend
 
             services.AddControllers();
 
-            Authentication.Infrastructure.Startup.ConfigureServices(services, Configuration);
+            Hub.Authentication.Infrastructure.Startup.ConfigureServices(services, Configuration);
             GpioService.Infrastructure.Startup.ConfigureServices(services, Configuration);
             SettingsService.Infrastructure.Startup.ConfigureServices(services, Configuration);
             EventPublisher.Infrastructure.Startup.ConfigureServices(services, Configuration);
@@ -86,7 +86,7 @@ namespace Kleinrechner.SplishSplash.Backend
 
             app.UseRouting();
 
-            Authentication.Infrastructure.Startup.Configure(app, env);
+            Hub.Authentication.Infrastructure.Startup.Configure(app, env);
 
             app.UseEndpoints(endpoints =>
             {
