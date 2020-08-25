@@ -40,14 +40,14 @@ namespace Kleinrechner.SplishSplash.Backend
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            
             Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
-                    config.SetBasePath(hostingContext.HostingEnvironment.ContentRootPath);
+                    var configPath = Path.Combine(hostingContext.HostingEnvironment.ContentRootPath, "App_Data");
+                    config.SetBasePath(configPath);
                     config.AddJsonFile("appsettings.json", false, true);
                     config.AddJsonFile($"appsettings.{Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")}.json", true);
-                    config.AddMultipleJsonFiles(Path.Combine(hostingContext.HostingEnvironment.ContentRootPath, "config"));
+                    config.AddMultipleJsonFiles(configPath);
                     config.AddEnvironmentVariables();
                 })
                 .UseSerilog((hostingContext, config) =>

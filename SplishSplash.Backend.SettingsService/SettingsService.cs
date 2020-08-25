@@ -45,7 +45,7 @@ namespace Kleinrechner.SplishSplash.Backend.SettingsService
 
         public void Save(SettingsServiceSettings value)
         {
-            var filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "config", "SettingsService.json");
+            var filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "App_Data", "SettingsService.json");
 
             var jsonString = System.IO.File.ReadAllText(filePath);
             var settingsServiceSettingsModel = JsonConvert.DeserializeObject<SettingsServiceSettingsModel>(jsonString);

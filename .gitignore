@@ -329,3 +329,5 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 SplishSplash.Backend/config/
+SplishSplash.Backend/App_Data/HubClientBackgroundService.json
+SplishSplash.Backend/App_Data/SettingsService.json

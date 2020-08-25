@@ -8,14 +8,15 @@
     <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
     <PackageProjectUrl>https://kleinrechner.visualstudio.com/SplishSplash</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="config\HubClientBackgroundService.json" />
+    <None Remove="App_Data\HubClientBackgroundService.json" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="config\HubClientBackgroundService.json">
+    <Content Include="App_Data\HubClientBackgroundService.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
