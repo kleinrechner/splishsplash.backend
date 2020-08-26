@@ -67,7 +67,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--runtime linux-arm --self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/arm'
+    arguments: '--runtime linux-arm /p:EnvironmentName=Production --self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/arm'
     zipAfterPublish: True
 
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.

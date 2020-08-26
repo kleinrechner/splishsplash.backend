@@ -35,7 +35,12 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService
 
             if (_webHostEnvironment.IsProduction())
             {
+                _logger.LogInformation("PrinWrapper run in production mode");
                 Pi.Init<BootstrapWiringPi>();
+            }
+            else
+            {
+                _logger.LogInformation("PrinWrapper run in dummy mode");
             }
         }
 
