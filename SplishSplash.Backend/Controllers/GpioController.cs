@@ -12,6 +12,7 @@ namespace Kleinrechner.SplishSplash.Backend.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "Administrator")]
+    // [Authorize(Roles = nameof(LoginUserRoles.Administrator))]
     public class GpioController : ControllerBase
     {
         private readonly ILogger<GpioController> _logger;

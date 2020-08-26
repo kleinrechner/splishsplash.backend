@@ -13,6 +13,7 @@ namespace Kleinrechner.SplishSplash.Backend.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "Administrator")]
+    // [Authorize(Roles = nameof(LoginUserRoles.Administrator))]
     public class SettingsController : ControllerBase
     {
         private readonly ISettingsService _settingsService;
