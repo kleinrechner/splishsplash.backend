@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions.Models;
 
 namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions
 {
     public interface ISplishSplashFrontendHubClient
     {
-        void BackendConnected(SettingsHubModel settingsHubModel);
+        Task BackendConnected(SettingsHubModel settingsHubModel);
 
-        void BackendDisconnected(BaseHubModel hubModel);
+        Task BackendDisconnected(BaseHubModel hubModel);
 
-        void GpioPinChangedReceived(GpioPinChangedModel gpioPinChangedModel);
+        Task GpioPinChangedReceived(GpioPinChangedModel gpioPinChangedModel);
     }
 }
