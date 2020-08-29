@@ -10,5 +10,7 @@ namespace Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions
         public const string SectionName = "SettingsServiceSettings";
 
         public List<PinMap> PinMap { get; set; }
+
+        public SchedulerBackgroundServiceSettings SchedulerSettings { get; set; }
     }
 }

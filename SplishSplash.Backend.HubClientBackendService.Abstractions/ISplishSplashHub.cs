@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions
 {
-    public interface ISplishSplashHubClient : ISplishSplashBackendHubClient, ISplishSplashFrontendHubClient
+    public interface ISplishSplashHub : ISplishSplashBackendHub, ISplishSplashFrontendHub
     {
     }
 }

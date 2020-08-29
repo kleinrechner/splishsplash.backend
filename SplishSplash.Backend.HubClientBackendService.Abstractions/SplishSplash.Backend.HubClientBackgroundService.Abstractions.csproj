@@ -9,9 +9,11 @@
     <PackageProjectUrl>https://kleinrechner.visualstudio.com/SplishSplash</PackageProjectUrl>
     <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SplishSplash.Backend.GpioService.Abstractions\SplishSplash.Backend.GpioService.Abstractions.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.SettingsService.Abstractions\SplishSplash.Backend.SettingsService.Abstractions.csproj" />
   </ItemGroup>
 
