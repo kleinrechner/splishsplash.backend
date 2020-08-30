@@ -41,6 +41,7 @@ namespace Kleinrechner.SplishSplash.Backend
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+                .UseSystemd()
                 .ConfigureAppConfiguration((hostingContext, config) =>
                 {
                     var configPath = Path.Combine(hostingContext.HostingEnvironment.ContentRootPath, "App_Data");

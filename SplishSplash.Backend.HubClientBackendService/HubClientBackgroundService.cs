@@ -82,6 +82,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             catch (Exception exc)
             {
                 _logger.LogError(exc, $"Failed to connect to Hub \"{_settings.Value.HubUrl}\": {exc.Message}");
+                throw;
             }
         }
 

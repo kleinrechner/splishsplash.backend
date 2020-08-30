@@ -1,0 +1,17 @@
+[Unit]
+Description=ASP.NET Core 3.1 App - SplishSplash-Backend
+
+[Service]
+WorkingDirectory=/home/pi/SplishSplashBackend/
+ExecStart=/home/pi/dotnet-arm32/dotnet /home/pi/SplishSplashBackend/Kleinrechner.SplishSplash.Backend.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+#KillSignal=SIGINT
+SyslogIdentifier=dotnet-splishsplashbackend
+User=pi
+Environment=ASPNETCORE_ENVIRONMENT=Development
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target
