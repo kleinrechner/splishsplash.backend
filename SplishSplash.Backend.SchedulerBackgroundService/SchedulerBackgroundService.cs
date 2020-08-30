@@ -15,6 +15,7 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService
 
         private readonly ISettingsService _settingsService;
         private readonly ILogger<SchedulerBackgroundService> _logger;
+        private CancellationToken _cancellationToken;
         private Timer _timer;
 
         #endregion
@@ -33,7 +34,8 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService
 
         public Task StartAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Timed Hosted Service running.");
+            _cancellationToken = stoppingToken;
+            _logger.LogInformation($"Starting {nameof(SchedulerBackgroundService)}...");
 
             _timer = new Timer(DoWork, null, TimeSpan.Zero,
                 TimeSpan.FromMinutes(1));
@@ -48,7 +50,7 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService
 
         public Task StopAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Timed Hosted Service is stopping.");
+            _logger.LogInformation($"Stopping service {nameof(SchedulerBackgroundService)}...");
 
             _timer?.Change(Timeout.Infinite, 0);
 

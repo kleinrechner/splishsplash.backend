@@ -49,32 +49,46 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
         #region Methods
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _cancellationToken = stoppingToken;
+            _logger.LogInformation($"Starting {nameof(HubClientBackgroundService)}...");
+            await ConnectToHub(stoppingToken);
+        }
 
+        private async Task ConnectToHub(CancellationToken cancellationToken)
+        {
+            _logger.LogInformation($"Starting connection to \"{_settings.Value.HubUrl}\" with User \"{_settings.Value.User}\"...");
 
-            _logger.LogInformation($"Starting connection to {_settings.Value.HubUrl}");
-            var credential = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(_settings.Value.User + ":" + _settings.Value.Password));
-            _hubConnection = new HubConnectionBuilder()
-                .WithUrl($"{_settings.Value.HubUrl}/splishsplashhub",
-                    options =>
-                    {
-                        options.Headers.Add("Authorization", $"Basic {credential}");
-                    })
-                .WithAutomaticReconnect()
-                //.AddMessagePackProtocol()
-                .Build();
+            try
+            {
+                var credential = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(_settings.Value.User + ":" + _settings.Value.Password));
+                _hubConnection = new HubConnectionBuilder()
+                    .WithUrl($"{_settings.Value.HubUrl}/splishsplashhub",
+                        options =>
+                        {
+                            options.Headers.Add("Authorization", $"Basic {credential}");
+                        })
+                    .WithAutomaticReconnect()
+                    //.AddMessagePackProtocol()
+                    .Build();
 
-            _hubConnection.On<BaseHubModel>(nameof(FrontendConntected), FrontendConntected);
-            _hubConnection.On<SettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
-            _hubConnection.On<ChangeGpioPinModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
+                _hubConnection.On<BaseHubModel>(nameof(FrontendConntected), FrontendConntected);
+                _hubConnection.On<SettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
+                _hubConnection.On<ChangeGpioPinModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
 
-            return _hubConnection.StartAsync(stoppingToken);
+                await _hubConnection.StartAsync(cancellationToken);
+            }
+            catch (Exception exc)
+            {
+                _logger.LogError(exc, $"Failed to connect to Hub \"{_settings.Value.HubUrl}\": {exc.Message}");
+            }
         }
 
         public override void Dispose()
         {
+            _logger.LogInformation($"Stopping service \"{nameof(HubClientBackgroundService)}\"...");
+
             _hubConnection?.DisposeAsync().Wait(_cancellationToken);
 
             base.Dispose();
@@ -100,7 +114,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             }
         }
 
-        public Task FrontendConntected(BaseHubModel hubModel)
+        public async Task FrontendConntected(BaseHubModel hubModel)
         {
             var settingsServiceSettings = _settingsService.GetSettings();
             var pinMapList = settingsServiceSettings.PinMap.Select(x => new PinMapModel(x)
@@ -113,7 +127,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             settingsHubModel.PinMap = pinMapList;
             settingsHubModel.SchedulerSettings = settingsServiceSettings.SchedulerSettings;
 
-            return _hubConnection.InvokeAsync(nameof(ISplishSplashBackendHub.ConnectBackend), 
+            await _hubConnection.InvokeAsync(nameof(ISplishSplashBackendHub.ConnectBackend), 
                 settingsHubModel,
                 _cancellationToken);
         }
