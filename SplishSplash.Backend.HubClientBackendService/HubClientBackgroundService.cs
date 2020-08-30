@@ -58,13 +58,13 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
         private async Task ConnectToHub(CancellationToken cancellationToken)
         {
-            _logger.LogInformation($"Starting connection to \"{_settings.Value.HubUrl}\" with User \"{_settings.Value.User}\"...");
-
             try
             {
+                var hubUri = new Uri(_settings.Value.HubUrl);
+                _logger.LogInformation($"Starting connection to \"{hubUri}\" with User \"{_settings.Value.User}\"...");
                 var credential = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(_settings.Value.User + ":" + _settings.Value.Password));
                 _hubConnection = new HubConnectionBuilder()
-                    .WithUrl($"{_settings.Value.HubUrl}/splishsplashhub",
+                    .WithUrl(new Uri(hubUri, "splishsplashhub"),
                         options =>
                         {
                             options.Headers.Add("Authorization", $"Basic {credential}");
