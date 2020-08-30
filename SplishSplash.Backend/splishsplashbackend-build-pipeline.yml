@@ -92,7 +92,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '/p:EnvironmentName=Production --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '/p:EnvironmentName=Development --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
@@ -100,4 +100,4 @@ steps:
   displayName: .net Core Create Artifacts
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'splishsplashbackendWebCD'
+    artifactName: 'splishsplashbackend'
