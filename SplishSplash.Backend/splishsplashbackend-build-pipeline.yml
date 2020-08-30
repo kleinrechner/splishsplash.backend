@@ -79,34 +79,20 @@ steps:
     arguments: '--runtime linux-arm /p:EnvironmentName=Production --self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/arm'
     zipAfterPublish: True
 
-# this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
-- task: PublishBuildArtifacts@1
-  displayName: .net Core Create Artifacts Linux-ARM
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/arm' 
-    artifactName: 'splishsplashbackend-arm'
-
 - task: DotNetCoreCLI@2
   displayName: .net Core Publish
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/x86'
+    arguments: '--self-contained false /p:EnvironmentName=Development --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/x86'
     zipAfterPublish: True
 
-# this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
-- task: PublishBuildArtifacts@1
-  displayName: .net Core Create Artifacts
-  inputs:
-    pathtoPublish: '$(Build.ArtifactStagingDirectory)/x86' 
-    artifactName: 'splishsplashbackend'
-
 - task: DotNetCoreCLI@2
   displayName: .net Core Publish
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    arguments: '/p:EnvironmentName=Production --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
 
 # this code takes all the files in $(Build.ArtifactStagingDirectory) and uploads them as an artifact of your build.
