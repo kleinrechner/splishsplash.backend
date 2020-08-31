@@ -74,7 +74,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
                 hubConnection.On<SettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
                 hubConnection.On<ChangeGpioPinModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
 
-                hubConnection.ServerTimeout = TimeSpan.FromMinutes(5);
+                hubConnection.ServerTimeout = TimeSpan.FromMinutes(1);
                 hubConnection.KeepAliveInterval = TimeSpan.FromMinutes(15);
                 return hubConnection;
             }
@@ -92,7 +92,15 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _cancellationToken = stoppingToken;
-            await ConnectToHub(stoppingToken);
+            var connected = await ConnectToHub(stoppingToken);
+            if (connected)
+            {
+                _logger.LogInformation("Connection to hub established!");
+            }
+            else
+            {
+                _logger.LogWarning("Connecting to hub canceled!");
+            }
         }
 
         private async Task<bool> ConnectToHub(CancellationToken cancellationToken)
