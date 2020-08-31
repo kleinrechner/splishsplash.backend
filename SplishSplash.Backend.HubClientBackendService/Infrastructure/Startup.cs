@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SplishSplash.Backend.EventPublisher.Abstractions;
@@ -26,7 +27,8 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Infrastru
             services.AddSingleton<HubClientBackgroundService>();
             services.AddTransient<IConsumer<GpioPinChangedEvent>>(x =>
                 x.GetRequiredService<HubClientBackgroundService>());
-            
+
+            services.AddSingleton<IRetryPolicy, KeepTryingReconnect>();
             services.AddHostedService<HubClientBackgroundService>(x => x.GetRequiredService<HubClientBackgroundService>());
         }
 

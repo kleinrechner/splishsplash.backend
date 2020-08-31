@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -24,10 +25,11 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         #region Fields
         private readonly ISettingsService _settingsService;
         private readonly IGpioService _gpioService;
+        private readonly IRetryPolicy _retryPolicy;
         private readonly ILogger<HubClientBackgroundService> _logger;
         private readonly IOptions<HubClientBackgroundServiceSettings> _settings;
 
-        private HubConnection _hubConnection;
+        private readonly HubConnection _hubConnection;
         private CancellationToken _cancellationToken;
 
         #endregion
@@ -36,13 +38,51 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
         public HubClientBackgroundService(IOptions<HubClientBackgroundServiceSettings> settings,
                                             ISettingsService settingsService,
-                                            IGpioService gpioService, 
+                                            IGpioService gpioService,
+                                            IRetryPolicy retryPolicy,
                                             ILogger<HubClientBackgroundService> logger)
         {
             _settings = settings;
             _gpioService = gpioService;
             _logger = logger;
             _settingsService = settingsService;
+            _retryPolicy = retryPolicy;
+
+            _logger.LogInformation($"Starting {nameof(HubClientBackgroundService)}...");
+            _hubConnection = CreateConnection();
+        }
+
+        private HubConnection CreateConnection()
+        {
+            try
+            {
+                
+                var hubUri = new Uri(_settings.Value.HubUrl);
+                _logger.LogInformation($"Starting create connection to \"{hubUri}\" with User \"{_settings.Value.User}\"...");
+                
+                var credential = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1")
+                    .GetBytes(_settings.Value.User + ":" + _settings.Value.Password));
+
+                var hubConnection = new HubConnectionBuilder()
+                    .WithUrl(new Uri(hubUri, "splishsplashhub"),
+                        options => { options.Headers.Add("Authorization", $"Basic {credential}"); })
+                    .WithAutomaticReconnect(_retryPolicy)
+                    //.AddMessagePackProtocol()
+                    .Build();
+
+                hubConnection.On<BaseHubModel>(nameof(FrontendConntected), FrontendConntected);
+                hubConnection.On<SettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
+                hubConnection.On<ChangeGpioPinModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
+
+                hubConnection.ServerTimeout = TimeSpan.FromMinutes(5);
+                hubConnection.KeepAliveInterval = TimeSpan.FromMinutes(15);
+                return hubConnection;
+            }
+            catch (Exception exc)
+            {
+                _logger.LogError(exc, $"Failed to create connection to Hub \"{_settings.Value.HubUrl}\": {exc.Message}");
+                throw;
+            }
         }
 
         #endregion
@@ -52,43 +92,54 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _cancellationToken = stoppingToken;
-            _logger.LogInformation($"Starting {nameof(HubClientBackgroundService)}...");
             await ConnectToHub(stoppingToken);
         }
 
-        private async Task ConnectToHub(CancellationToken cancellationToken)
+        private async Task<bool> ConnectToHub(CancellationToken cancellationToken)
+        {
+            // Keep trying to until we can start or the token is canceled.
+            while (true)
+            {
+                try
+                {
+                    _logger.LogInformation($"Starting connection to \"{_settings.Value.HubUrl}\"...");
+                    await _hubConnection.StartAsync(cancellationToken);
+                    Debug.Assert(_hubConnection.State == HubConnectionState.Connected);
+                    return true;
+                }
+                catch when (cancellationToken.IsCancellationRequested)
+                {
+                    return false;
+                }
+                catch (Exception exc)
+                {
+                    _logger.LogError(exc, $"Failed to connect to Hub \"{_settings.Value.HubUrl}\": {exc.Message}");
+
+                    // Failed to connect, trying again in 5000 ms.
+                    Debug.Assert(_hubConnection.State == HubConnectionState.Disconnected);
+                    await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
+                }
+            }
+        }
+
+        public override async Task StopAsync(CancellationToken cancellationToken)
         {
             try
             {
-                var hubUri = new Uri(_settings.Value.HubUrl);
-                _logger.LogInformation($"Starting connection to \"{hubUri}\" with User \"{_settings.Value.User}\"...");
-                var credential = Convert.ToBase64String(System.Text.Encoding.GetEncoding("ISO-8859-1").GetBytes(_settings.Value.User + ":" + _settings.Value.Password));
-                _hubConnection = new HubConnectionBuilder()
-                    .WithUrl(new Uri(hubUri, "splishsplashhub"),
-                        options =>
-                        {
-                            options.Headers.Add("Authorization", $"Basic {credential}");
-                        })
-                    .WithAutomaticReconnect()
-                    //.AddMessagePackProtocol()
-                    .Build();
-
-                _hubConnection.On<BaseHubModel>(nameof(FrontendConntected), FrontendConntected);
-                _hubConnection.On<SettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
-                _hubConnection.On<ChangeGpioPinModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
-
-                await _hubConnection.StartAsync(cancellationToken);
+                _logger.LogInformation($"Stop connection to \"{_settings.Value.HubUrl}\"...");
+                await _hubConnection.StopAsync(cancellationToken);
+                await base.StopAsync(cancellationToken);
             }
             catch (Exception exc)
             {
-                _logger.LogError(exc, $"Failed to connect to Hub \"{_settings.Value.HubUrl}\": {exc.Message}");
+                _logger.LogError(exc, $"Failed to stop connection: {exc.Message}");
                 throw;
             }
         }
 
         public override void Dispose()
         {
-            _logger.LogInformation($"Stopping service \"{nameof(HubClientBackgroundService)}\"...");
+            _logger.LogInformation($"Dispose service \"{nameof(HubClientBackgroundService)}\"...");
 
             _hubConnection?.DisposeAsync().Wait(_cancellationToken);
 
