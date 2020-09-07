@@ -94,7 +94,9 @@ namespace Kleinrechner.SplishSplash.Backend
 
                 endpoints.MapGet("/", async context =>
                 {
+                    var pinWrapperMode = env.IsProduction() ? "Production" : "Dummy";
                     await context.Response.WriteAsync($"Welcome to SplishSplash.Backend{Environment.NewLine}" +
+                                                      $"PinWrapper mode: {pinWrapperMode}{Environment.NewLine}" +
                                                       $"Assembly {this.GetType().Assembly.GetName().Name}{Environment.NewLine}" +
                                                       $"Version {this.GetType().Assembly.GetName().Version}{Environment.NewLine}" +
                                                       $".NET Core {Environment.Version}{Environment.NewLine}" +
