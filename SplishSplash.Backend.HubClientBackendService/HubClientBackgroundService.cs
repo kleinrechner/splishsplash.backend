@@ -73,9 +73,6 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
                 hubConnection.On<BaseHubModel>(nameof(FrontendConntected), FrontendConntected);
                 hubConnection.On<SettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
                 hubConnection.On<ChangeGpioPinModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
-
-                hubConnection.ServerTimeout = TimeSpan.FromMinutes(1);
-                hubConnection.KeepAliveInterval = TimeSpan.FromMinutes(15);
                 return hubConnection;
             }
             catch (Exception exc)
@@ -149,7 +146,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         {
             _logger.LogInformation($"Dispose service \"{nameof(HubClientBackgroundService)}\"...");
 
-            _hubConnection?.DisposeAsync().Wait(_cancellationToken);
+            _hubConnection?.DisposeAsync().Wait();
 
             base.Dispose();
         }
