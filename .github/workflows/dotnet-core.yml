@@ -20,6 +20,9 @@ jobs:
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     
+    - name: Install dependencies  
+      run: dotnet restore
+    
     - name: Build and generate SplishSplash.Backend.HubClientBackendService.Abstractions NuGet package
       run: dotnet pack SplishSplash.Backend.HubClientBackendService.Abstractions/SplishSplash.Backend.HubClientBackgroundService.Abstractions.csproj --configuration Release --no-build --output out    
     
