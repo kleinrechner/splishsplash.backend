@@ -5,10 +5,10 @@
     <AssemblyName>Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions</AssemblyName>
     <RootNamespace>Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions</RootNamespace>
     <Copyright>Copyright © Kleinrechner 2020</Copyright>
-    <PackageProjectUrl>https://kleinrechner.visualstudio.com/SplishSplash</PackageProjectUrl>
-    <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/kleinrechner</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <Version>1.0.1</Version>
+    <RepositoryUrl>https://github.com/kleinrechner/splishsplash.backend</RepositoryUrl>
+    <Version>0.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 

@@ -4,9 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>Kleinrechner.SplishSplash.Backend.EventPublisher.Abstractions</AssemblyName>
     <Copyright>Copyright © Kleinrechner 2020</Copyright>
-    <PackageProjectUrl>https://kleinrechner.visualstudio.com/SplishSplash</PackageProjectUrl>
-    <RepositoryUrl>https://kleinrechner.visualstudio.com/SplishSplash/_git/SplishSplash.Backend</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/kleinrechner</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/kleinrechner/splishsplash.backend</RepositoryUrl>
+    <Version>0.1.0</Version>
   </PropertyGroup>
 
 </Project>
