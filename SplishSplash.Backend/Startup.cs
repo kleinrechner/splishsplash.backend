@@ -55,7 +55,7 @@ namespace Kleinrechner.SplishSplash.Backend
 
             services.AddControllers();
 
-            Hub.Authentication.Infrastructure.Startup.ConfigureServices(services, Configuration);
+            //Hub.Authentication.Infrastructure.Startup.ConfigureServices(services, Configuration);
             GpioService.Infrastructure.Startup.ConfigureServices(services, Configuration);
             SettingsService.Infrastructure.Startup.ConfigureServices(services, Configuration);
             EventPublisher.Infrastructure.Startup.ConfigureServices(services, Configuration);
