@@ -71,20 +71,6 @@ steps:
     publishVstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/d8ca8f72-a3c7-4dc5-aeed-8ac7e6f5a3fd'
     allowPackageConflicts: true
 
-- task: NuGetAuthenticate@0
-  displayName: NuGet Authenticate - GitHub
-  inputs:
-    nuGetServiceConnections: 'nuget-github'
-
-- task: NuGetCommand@2
-  displayName: NuGet Push - GitHub
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'nuget-github'
-    allowPackageConflicts: true    
-
 - task: DotNetCoreCLI@2
   displayName: .net Core Publish Linux-ARM
   inputs:
