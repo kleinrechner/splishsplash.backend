@@ -9,14 +9,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2  
+    - name: Checkout repository
+      uses: actions/checkout@v2
+        
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
-    - name: Install dependencies  
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+        source-url: https://nuget.pkg.github.com/kleinrechner/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    
+    - name: Build and generate SplishSplash.Backend.HubClientBackendService.Abstractions NuGet package
+      run: dotnet pack SplishSplash.Backend.HubClientBackendService.Abstractions/SplishSplash.Backend.HubClientBackgroundService.Abstractions.csproj --configuration Release --no-build --output out    
+    
+    - name: Build and generate SplishSplash.Backend.GpioService.Abstractions NuGet package
+      run: dotnet pack SplishSplash.Backend.GpioService.Abstractions/SplishSplash.Backend.GpioService.Abstractions.csproj --configuration Release --no-build --output out
+    
+    - name: Build and generate SplishSplash.Backend.SettingsService.Abstractions NuGet package
+      run: dotnet pack SplishSplash.Backend.SettingsService.Abstractions/SplishSplash.Backend.SettingsService.Abstractions.csproj --configuration Release --no-build --output out
+
+    - name: Push generated package to GitHub registry
+      run: dotnet nuget push ./splishsplash.backend/out/*.nupkg --skip-duplicate --no-symbols true
