@@ -36,4 +36,4 @@ jobs:
       run: dotnet pack SplishSplash.Backend.SettingsService.Abstractions/SplishSplash.Backend.SettingsService.Abstractions.csproj --no-build --configuration Release --output out
 
     - name: Push generated package to GitHub registry
-      run: dotnet nuget push ./splishsplash.backend/out/*.nupkg --skip-duplicate --no-symbols true
+      run: dotnet nuget push out/*.nupkg --skip-duplicate --no-symbols true
