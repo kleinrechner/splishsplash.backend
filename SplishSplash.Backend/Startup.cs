@@ -86,7 +86,7 @@ namespace Kleinrechner.SplishSplash.Backend
 
             app.UseRouting();
 
-            Hub.Authentication.Infrastructure.Startup.Configure(app, env);
+            //Hub.Authentication.Infrastructure.Startup.Configure(app, env);
 
             app.UseEndpoints(endpoints =>
             {
