@@ -1,4 +1,4 @@
-﻿# ASP.NET Core
+# ASP.NET Core
 # Build and test ASP.NET Core projects targeting .NET Core.
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
@@ -17,7 +17,7 @@ steps:
     command: 'restore'
     projects: '**/*.csproj'
     feedsToUse: 'select'
-    vstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/d8ca8f72-a3c7-4dc5-aeed-8ac7e6f5a3fd'
+    vstsFeed: '9bfaf231-9848-402c-9f3c-89f8e58457e3/55ad23fb-be9a-4c5c-9fee-de6bd00fbd15'
     includeNuGetOrg: true
 
 - task: DotNetCoreCLI@2
@@ -68,7 +68,7 @@ steps:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
     nuGetFeedType: 'internal'
-    publishVstsFeed: '56a906f6-92f1-4ea1-8474-dbd9bbad7ba0/d8ca8f72-a3c7-4dc5-aeed-8ac7e6f5a3fd'
+    publishVstsFeed: '9bfaf231-9848-402c-9f3c-89f8e58457e3/55ad23fb-be9a-4c5c-9fee-de6bd00fbd15'
     allowPackageConflicts: true
 
 - task: DotNetCoreCLI@2
