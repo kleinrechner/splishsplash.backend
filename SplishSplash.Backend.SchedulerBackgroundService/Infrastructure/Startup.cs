@@ -18,6 +18,7 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Infrastru
 
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
+            services.AddSingleton<ISchedulerService, SchedulerService>();
             services.AddHostedService<SchedulerBackgroundService>();
         }
 

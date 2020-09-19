@@ -13,18 +13,17 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService
     {
         #region Fields
 
-        private readonly ISettingsService _settingsService;
+        private readonly ISchedulerService _schedulerService;
         private readonly ILogger<SchedulerBackgroundService> _logger;
-        private CancellationToken _cancellationToken;
         private Timer _timer;
 
         #endregion
 
         #region Ctor
 
-        public SchedulerBackgroundService(ISettingsService settingsService, ILogger<SchedulerBackgroundService> logger)
+        public SchedulerBackgroundService(ISchedulerService schedulerService, ILogger<SchedulerBackgroundService> logger)
         {
-            _settingsService = settingsService;
+            _schedulerService = schedulerService;
             _logger = logger;
         }
 
@@ -34,18 +33,14 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService
 
         public Task StartAsync(CancellationToken stoppingToken)
         {
-            _cancellationToken = stoppingToken;
             _logger.LogInformation($"Starting {nameof(SchedulerBackgroundService)}...");
 
-            _timer = new Timer(DoWork, null, TimeSpan.Zero,
-                TimeSpan.FromMinutes(1));
+            _timer = new Timer(_schedulerService.ExecuteScheduler, 
+                                null, 
+                                TimeSpan.Zero,
+                                TimeSpan.FromMinutes(1));
 
             return Task.CompletedTask;
-        }
-
-        private void DoWork(object state)
-        {
-
         }
 
         public Task StopAsync(CancellationToken stoppingToken)
