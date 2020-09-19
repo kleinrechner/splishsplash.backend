@@ -76,7 +76,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--runtime linux-arm /p:EnvironmentName=Production --self-contained false --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/arm'
+    arguments: '--runtime linux-arm /p:EnvironmentName=Production --self-contained true --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/arm'
     zipAfterPublish: True
 
 - task: DotNetCoreCLI@2
@@ -84,7 +84,7 @@ steps:
   inputs:
     command: publish
     publishWebProjects: True
-    arguments: '--self-contained false /p:EnvironmentName=Development --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/x86'
+    arguments: '--self-contained true /p:EnvironmentName=Development --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/x86'
     zipAfterPublish: True
 
 - task: DotNetCoreCLI@2
