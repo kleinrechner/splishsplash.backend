@@ -8,8 +8,6 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstracti
     {
         #region Fields
 
-        public string SenderDisplayName { get; set; }
-
         public string SenderUserName { get; set; }
 
         public string ReceiverUserName { get; set; }
