@@ -53,6 +53,7 @@ namespace Kleinrechner.SplishSplash.Backend
                 });
             });
 
+            services.AddCors(); // Make sure you call this previous to AddMvc
             services.AddControllers();
 
             Hub.Authentication.Infrastructure.Startup.ConfigureServices(services, Configuration);
@@ -73,6 +74,11 @@ namespace Kleinrechner.SplishSplash.Backend
 
             // Add this line; you'll need `using Serilog;` up the top, too
             app.UseSerilogRequestLogging();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
