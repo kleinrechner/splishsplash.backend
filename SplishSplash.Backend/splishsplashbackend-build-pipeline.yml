@@ -80,15 +80,7 @@ steps:
     zipAfterPublish: True
 
 - task: DotNetCoreCLI@2
-  displayName: .net Core Publish
-  inputs:
-    command: publish
-    publishWebProjects: True
-    arguments: '--self-contained true /p:EnvironmentName=Development --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/x86'
-    zipAfterPublish: True
-
-- task: DotNetCoreCLI@2
-  displayName: .net Core Publish
+  displayName: .net Core Publish Web-Deployment
   inputs:
     command: publish
     publishWebProjects: True
