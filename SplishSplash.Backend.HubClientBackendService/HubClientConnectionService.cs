@@ -99,7 +99,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         public async Task FrontendConntected(BaseHubModel hubModel)
         {
             var settingsServiceSettings = _settingsService.GetSettings();
-            var pinMapList = settingsServiceSettings.PinMap.Select(x => new PinMapModel(x)
+            var pinMapList = settingsServiceSettings.PinMap?.Select(x => new PinMapModel(x)
             {
                 GpioPin = new IGpioPinWrapperToGpioPinModelAdapter(_gpioService.GetGpioPin(x.GpioPinNumber))
             }).ToList();
