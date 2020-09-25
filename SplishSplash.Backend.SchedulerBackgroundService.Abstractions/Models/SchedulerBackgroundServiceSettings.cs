@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions.Models
+namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Abstractions.Models
 {
     public class SchedulerBackgroundServiceSettings
     {

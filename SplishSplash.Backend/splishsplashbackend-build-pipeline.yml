@@ -36,6 +36,15 @@ steps:
     arguments: '--configuration $(buildConfiguration)'
 
 - task: DotNetCoreCLI@2
+  displayName: "dotnet pack SplishSplash.Backend.SchedulerBackgroundService.Abstractions"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: 'SplishSplash.Backend.SchedulerBackgroundService.Abstractions/SplishSplash.Backend.SchedulerBackgroundService.Abstractions.csproj'
+    nobuild: true
+    versioningScheme: 'off'
+
+- task: DotNetCoreCLI@2
   displayName: "dotnet pack SplishSplash.Backend.HubClientBackendService.Abstractions"
   inputs:
     command: 'pack'

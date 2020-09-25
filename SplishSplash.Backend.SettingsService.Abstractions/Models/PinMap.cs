@@ -8,9 +8,13 @@ namespace Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions.Models
     {
         #region Fields
 
-        public int Pin { get; set; }
+        public int GpioPinNumber { get; set; }
 
         public string DisplayName { get; set; }
+
+        public int OrderNumber { get; set; }
+
+        public string Icon { get; set; }
 
         #endregion
 

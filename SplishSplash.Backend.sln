@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.Settin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.SettingsService", "SplishSplash.Backend.SettingsService\SplishSplash.Backend.SettingsService.csproj", "{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.SchedulerBackgroundService.Abstractions", "SplishSplash.Backend.SchedulerBackgroundService.Abstractions\SplishSplash.Backend.SchedulerBackgroundService.Abstractions.csproj", "{963E584E-AD28-4727-BF4C-C416324A4A47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{963E584E-AD28-4727-BF4C-C416324A4A47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{963E584E-AD28-4727-BF4C-C416324A4A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{963E584E-AD28-4727-BF4C-C416324A4A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{963E584E-AD28-4727-BF4C-C416324A4A47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,6 +100,7 @@ Global
 		{F0416AC4-7066-47D7-BB51-86690EC3823F} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 		{88833983-83CB-48F2-A3A9-CBE1FF660F87} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{963E584E-AD28-4727-BF4C-C416324A4A47} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4312BFF-A6A7-458F-8607-F1F326454229}

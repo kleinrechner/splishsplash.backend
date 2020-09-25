@@ -81,7 +81,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         public void HandleEvent(GpioPinChangedEvent eventMessage)
         {
             var pinMap = _settingsService.GetSettings().PinMap
-                .FirstOrDefault(x => x.Pin == eventMessage.GpioPin.GpioPinNumber);
+                .FirstOrDefault(x => x.GpioPinNumber == eventMessage.GpioPin.GpioPinNumber);
 
             if (pinMap != null)
             {
@@ -101,7 +101,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             var settingsServiceSettings = _settingsService.GetSettings();
             var pinMapList = settingsServiceSettings.PinMap.Select(x => new PinMapModel(x)
             {
-                GpioPin = new IGpioPinWrapperToGpioPinModelAdapter(_gpioService.GetGpioPin(x.Pin))
+                GpioPin = new IGpioPinWrapperToGpioPinModelAdapter(_gpioService.GetGpioPin(x.GpioPinNumber))
             }).ToList();
 
             var settingsHubModel = new SettingsHubModel();
@@ -117,7 +117,13 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         public Task UpdateSettingsReceived(SettingsHubModel settingsHubModel)
         {
             var settingsServiceSettings = new SettingsServiceSettings();
-            settingsServiceSettings.PinMap = settingsHubModel.PinMap.Select(x => new PinMap() { DisplayName = x.DisplayName, Pin = x.Pin }).ToList();
+            settingsServiceSettings.PinMap = settingsHubModel.PinMap.Select(x => new PinMap()
+            {
+                DisplayName = x.DisplayName, 
+                GpioPinNumber = x.GpioPinNumber, 
+                OrderNumber = x.OrderNumber, 
+                Icon = x.Icon
+            }).ToList();
             settingsServiceSettings.SchedulerSettings = settingsHubModel.SchedulerSettings;
 
             _settingsService.Save(settingsServiceSettings);

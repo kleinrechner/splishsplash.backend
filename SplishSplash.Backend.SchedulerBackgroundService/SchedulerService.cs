@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions;
 using Microsoft.Extensions.Logging;
 

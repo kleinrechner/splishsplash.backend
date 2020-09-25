@@ -22,8 +22,10 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstracti
 
         public PinMapModel(PinMap pinMap)
         {
-            this.Pin = pinMap.Pin;
+            this.GpioPinNumber = pinMap.GpioPinNumber;
             this.DisplayName = pinMap.DisplayName;
+            this.OrderNumber = pinMap.OrderNumber;
+            this.Icon = pinMap.Icon;
         }
 
         #endregion

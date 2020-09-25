@@ -2,18 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <AssemblyName>Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions</AssemblyName>
-    <RootNamespace>Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions</RootNamespace>
     <Copyright>Copyright © Kleinrechner 2020</Copyright>
     <PackageProjectUrl>https://github.com/kleinrechner</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/kleinrechner/splishsplash.backend</RepositoryUrl>
-    <Version>0.1.1</Version>
+    <Version>0.1.0</Version>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <AssemblyName>Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Abstractions</AssemblyName>
+    <RootNamespace>Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Abstractions</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SplishSplash.Backend.SchedulerBackgroundService.Abstractions\SplishSplash.Backend.SchedulerBackgroundService.Abstractions.csproj" />
-  </ItemGroup>
 
 </Project>
