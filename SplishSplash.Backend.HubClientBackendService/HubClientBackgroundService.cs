@@ -60,7 +60,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         {
             _logger.LogInformation($"Dispose service \"{nameof(HubClientBackgroundService)}\"...");
 
-            _hubClientConnectionService.Dispose();
+            _hubClientConnectionService.DisposeAsync().GetAwaiter().GetResult();
 
             base.Dispose();
         }

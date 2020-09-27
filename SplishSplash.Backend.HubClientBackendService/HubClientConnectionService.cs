@@ -246,9 +246,12 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             }
         }
 
-        public void Dispose()
+        public async ValueTask DisposeAsync()
         {
-            _hubConnection?.DisposeAsync().GetAwaiter().GetResult();
+            if (_hubConnection != null)
+            {
+                await _hubConnection.DisposeAsync();
+            }
         }
 
         #endregion

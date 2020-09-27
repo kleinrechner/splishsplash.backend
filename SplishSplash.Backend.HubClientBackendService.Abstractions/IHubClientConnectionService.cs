@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions
 {
-    public interface IHubClientConnectionService : IDisposable
+    public interface IHubClientConnectionService : IAsyncDisposable
     {
         Task StartConnectionAsync(CancellationToken cancellationToken);
 
