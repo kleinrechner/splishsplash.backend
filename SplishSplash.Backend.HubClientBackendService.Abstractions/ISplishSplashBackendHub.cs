@@ -11,5 +11,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstracti
         Task ConnectBackend(SettingsHubModel settingsHubModel);
 
         Task SendGpioPinChanged(GpioPinChangedModel gpioPinChangedModel);
+
+        Task BackendCommandFailed(BackendCommandFailedModel backendCommandFailedModel);
     }
 }
