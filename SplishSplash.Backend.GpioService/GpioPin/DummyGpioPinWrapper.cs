@@ -38,6 +38,9 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.GpioPin
             _logger = logger;
 
             _gpioPinNumber = (int) bcmPin;
+            _physicalPinNumber = (int) bcmPin;
+            _mode = GpioPinDriveMode.Input;
+            _value = false;
         }
 
         #endregion
