@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Abstractions.Models
 {
-    public class SchedulerBackgroundServiceSettings
+    public class SchedulerTaskSettings
     {
         #region Fields
         #endregion

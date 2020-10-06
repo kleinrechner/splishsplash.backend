@@ -19,7 +19,7 @@ namespace Kleinrechner.SplishSplash.Backend.SettingsService.Infrastructure
 
         public static void ConfigureServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<SettingsServiceSettings>(configuration.GetSection(SettingsServiceSettings.SectionName));
+            services.Configure<BackendSettings>(configuration.GetSection(BackendSettings.SectionName));
 
             services.AddTransient<ISettingsService, SettingsService>();
         }

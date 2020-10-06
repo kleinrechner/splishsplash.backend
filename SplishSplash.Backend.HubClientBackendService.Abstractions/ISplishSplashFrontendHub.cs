@@ -8,7 +8,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstracti
 {
     public interface ISplishSplashFrontendHub
     {
-        Task SendUpdateSettings(SettingsHubModel settingsHubModel);
+        Task SendUpdateSettings(BackendSettingsHubModel backendSettingsHubModel);
 
         Task SendChangeGpioPin(ChangeGpioPinModel changeGpioPinModel);
     }

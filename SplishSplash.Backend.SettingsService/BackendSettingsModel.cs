@@ -5,8 +5,8 @@ using Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions;
 
 namespace Kleinrechner.SplishSplash.Backend.SettingsService
 {
-    internal class SettingsServiceSettingsModel
+    internal class BackendSettingsModel
     {
-        public SettingsServiceSettings SettingsServiceSettings { get; set; }
+        public BackendSettings BackendSettings { get; set; }
     }
 }

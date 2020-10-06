@@ -9,7 +9,7 @@
     <PackageProjectUrl>https://github.com/kleinrechner</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/kleinrechner/splishsplash.backend</RepositoryUrl>
-    <Version>0.2.0</Version>
+    <Version>0.3.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

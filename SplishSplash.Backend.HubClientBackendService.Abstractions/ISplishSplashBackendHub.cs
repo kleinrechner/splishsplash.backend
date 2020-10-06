@@ -8,9 +8,11 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstracti
 {
     public interface ISplishSplashBackendHub
     {
-        Task ConnectBackend(SettingsHubModel settingsHubModel);
+        Task ConnectBackend(BackendSettingsHubModel backendSettingsHubModel);
 
         Task SendGpioPinChanged(GpioPinChangedModel gpioPinChangedModel);
+
+        Task SettingsUpdated(BackendSettingsHubModel backendSettingsHubModel);
 
         Task BackendCommandFailed(BackendCommandFailedModel backendCommandFailedModel);
     }

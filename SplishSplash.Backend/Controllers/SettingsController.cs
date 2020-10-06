@@ -26,7 +26,7 @@ namespace Kleinrechner.SplishSplash.Backend.Controllers
         }
 
         [HttpGet]
-        public SettingsServiceSettings Get()
+        public BackendSettings Get()
         {
             var settingsServiceSettings = _settingsService.GetSettings();
             return settingsServiceSettings;
@@ -34,7 +34,7 @@ namespace Kleinrechner.SplishSplash.Backend.Controllers
 
         [HttpPost]
         [HttpPut]
-        public void Save([FromBody] SettingsServiceSettings value)
+        public void Save([FromBody] BackendSettings value)
         {
             _settingsService.Save(value);
         }

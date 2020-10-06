@@ -10,7 +10,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstracti
     {
         Task FrontendConntected(BaseHubModel hubModel);
 
-        Task UpdateSettingsReceived(SettingsHubModel settingsHubModel);
+        Task UpdateSettingsReceived(BackendSettingsHubModel backendSettingsHubModel);
 
         Task ChangeGpioPinReceived(ChangeGpioPinModel changeGpioPinModel);
     }

@@ -6,8 +6,8 @@ namespace Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions
 {
     public interface ISettingsService
     {
-        SettingsServiceSettings GetSettings();
+        BackendSettings GetSettings();
 
-        void Save(SettingsServiceSettings value);
+        void Save(BackendSettings value);
     }
 }

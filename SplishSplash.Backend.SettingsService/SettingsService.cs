@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
+using SplishSplash.Backend.EventPublisher.Abstractions;
 
 namespace Kleinrechner.SplishSplash.Backend.SettingsService
 {
@@ -18,18 +19,21 @@ namespace Kleinrechner.SplishSplash.Backend.SettingsService
         #region Fields
 
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IEventPublisher _eventPublisher;
         private readonly ILogger<SettingsService> _logger;
-        private SettingsServiceSettings _settings;
+        private BackendSettings _settings;
 
         #endregion
 
         #region Ctor
 
-        public SettingsService(IWebHostEnvironment webHostEnvironment,
-            IOptions<SettingsServiceSettings> settings,
+        public SettingsService(IWebHostEnvironment webHostEnvironment, 
+            IEventPublisher eventPublisher,
+            IOptions<BackendSettings> settings,
             ILogger<SettingsService> logger)
         {
             _webHostEnvironment = webHostEnvironment;
+            _eventPublisher = eventPublisher;
             _settings = settings.Value;
             _logger = logger;
         }
@@ -38,24 +42,25 @@ namespace Kleinrechner.SplishSplash.Backend.SettingsService
 
         #region Methods
 
-        public SettingsServiceSettings GetSettings()
+        public BackendSettings GetSettings()
         {
             return _settings;
         }
 
-        public void Save(SettingsServiceSettings value)
+        public void Save(BackendSettings value)
         {
             var filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "App_Data", "SettingsService.json");
 
             var jsonString = System.IO.File.ReadAllText(filePath);
-            var settingsServiceSettingsModel = JsonConvert.DeserializeObject<SettingsServiceSettingsModel>(jsonString);
-            settingsServiceSettingsModel.SettingsServiceSettings = value;
+            var backendSettingsModel = JsonConvert.DeserializeObject<BackendSettingsModel>(jsonString);
+            backendSettingsModel.BackendSettings = value;
 
             //serialize the new updated object to a string
-            var toWrite = JsonConvert.SerializeObject(settingsServiceSettingsModel, Formatting.Indented);
+            var toWrite = JsonConvert.SerializeObject(backendSettingsModel, Formatting.Indented);
 
             //overwrite the file and it wil contain the new data
             System.IO.File.WriteAllText(filePath, toWrite);
+            _eventPublisher.Publish(new SettingsUpdatedEvent(backendSettingsModel.BackendSettings));
 
             _settings = value;
         }

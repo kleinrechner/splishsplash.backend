@@ -5,7 +5,7 @@ using Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Abstractions.
 
 namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions.Models
 {
-    public class SettingsHubModel : BaseHubModel
+    public class BackendSettingsHubModel : BaseHubModel
     {
         #region Fields
 
@@ -17,7 +17,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstracti
         
         public List<PinMapModel> PinMap { get; set; }
 
-        public SchedulerBackgroundServiceSettings SchedulerSettings { get; set; }
+        public List<SchedulerTaskSettings> SchedulerSettings { get; set; }
 
         #endregion
 

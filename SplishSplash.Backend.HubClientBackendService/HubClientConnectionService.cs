@@ -19,7 +19,7 @@ using SplishSplash.Backend.EventPublisher.Abstractions;
 
 namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 {
-    public class HubClientConnectionService : IHubClientConnectionService, ISplishSplashBackendHubClient, IConsumer<GpioPinChangedEvent>
+    public class HubClientConnectionService : IHubClientConnectionService, ISplishSplashBackendHubClient, IConsumer<GpioPinChangedEvent>, IConsumer<SettingsUpdatedEvent>
     {
         #region Fields
 
@@ -36,7 +36,11 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
         #region Ctor
 
-        public HubClientConnectionService(ISettingsService settingsService, IGpioService gpioService, IRetryPolicy retryPolicy, IOptions<HubClientBackgroundServiceSettings> settings, ILogger<HubClientConnectionService> logger)
+        public HubClientConnectionService(ISettingsService settingsService, 
+                                            IGpioService gpioService, 
+                                            IRetryPolicy retryPolicy, 
+                                            IOptions<HubClientBackgroundServiceSettings> settings, 
+                                            ILogger<HubClientConnectionService> logger)
         {
             _settingsService = settingsService;
             _gpioService = gpioService;
@@ -105,23 +109,32 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             }
         }
 
+        public void HandleEvent(SettingsUpdatedEvent eventMessage)
+        {
+            try
+            {
+                var settingsHubModel = GetBackendSettingsHubModel(eventMessage.SettingsServiceSettings);
+
+                    _hubConnection.InvokeAsync(nameof(ISplishSplashBackendHub.SettingsUpdated),
+                        settingsHubModel,
+                        _cancellationToken).Wait(_cancellationToken);
+            }
+            catch (Exception exc)
+            {
+                _logger.LogError($"Handle SettingsUpdatedEvent failed: {exc.Message}", exc);
+            }
+        }
+
         public async Task FrontendConntected(BaseHubModel hubModel)
         {
             try
             {
-                var settingsServiceSettings = _settingsService.GetSettings();
-                var pinMapList = settingsServiceSettings.PinMap?.Select(x => new PinMapModel(x)
-                {
-                    GpioPin = new IGpioPinWrapperToGpioPinModelAdapter(_gpioService.GetGpioPin(x.GpioPinNumber))
-                }).ToList();
-
-                var settingsHubModel = new SettingsHubModel();
-                settingsHubModel.ReceiverUserName = hubModel.SenderUserName;
-                settingsHubModel.PinMap = pinMapList;
-                settingsHubModel.SchedulerSettings = settingsServiceSettings.SchedulerSettings;
+                var backendSettings = _settingsService.GetSettings();
+                var backendSettingsHubModel = GetBackendSettingsHubModel(backendSettings);
+                backendSettingsHubModel.ReceiverUserName = hubModel.SenderUserName;
 
                 await _hubConnection.InvokeAsync(nameof(ISplishSplashBackendHub.ConnectBackend),
-                    settingsHubModel,
+                    backendSettingsHubModel,
                     _cancellationToken);
             }
             catch (Exception exc)
@@ -130,25 +143,29 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             }
         }
 
-        public async Task UpdateSettingsReceived(SettingsHubModel settingsHubModel)
+        public async Task UpdateSettingsReceived(BackendSettingsHubModel backendSettingsHubModel)
         {
             try
             {
-                var settingsServiceSettings = new SettingsServiceSettings();
-                settingsServiceSettings.PinMap = settingsHubModel.PinMap.Select(x => new PinMap()
+                var backendSettings = new BackendSettings();
+                backendSettings.DisplayName = backendSettingsHubModel.DisplayName;
+                backendSettings.Icon = backendSettingsHubModel.Icon;
+                backendSettings.OrderNumber = backendSettingsHubModel.OrderNumber;
+                backendSettings.SchedulerSettings = backendSettingsHubModel.SchedulerSettings;
+
+                backendSettings.PinMap = backendSettingsHubModel.PinMap.Select(x => new PinMap()
                 {
                     DisplayName = x.DisplayName,
                     GpioPinNumber = x.GpioPinNumber,
                     OrderNumber = x.OrderNumber,
                     Icon = x.Icon
                 }).ToList();
-                settingsServiceSettings.SchedulerSettings = settingsHubModel.SchedulerSettings;
 
-                _settingsService.Save(settingsServiceSettings);
+                _settingsService.Save(backendSettings);
             }
             catch (Exception exc)
             {
-                await HandleCommandFailed(nameof(UpdateSettingsReceived), settingsHubModel, exc);
+                await HandleCommandFailed(nameof(UpdateSettingsReceived), backendSettingsHubModel, exc);
             }
         }
 
@@ -184,7 +201,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
                     .Build();
 
                 hubConnection.On<BaseHubModel>(nameof(FrontendConntected), FrontendConntected);
-                hubConnection.On<SettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
+                hubConnection.On<BackendSettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
                 hubConnection.On<ChangeGpioPinModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
                 return hubConnection;
             }
@@ -220,6 +237,20 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
                     await Task.Delay(TimeSpan.FromMinutes(1), cancellationToken);
                 }
             }
+        }
+
+        private BackendSettingsHubModel GetBackendSettingsHubModel(BackendSettings settingsServiceSettings)
+        {
+            var pinMapList = settingsServiceSettings.PinMap?.Select(x => new PinMapModel(x)
+            {
+                GpioPin = new IGpioPinWrapperToGpioPinModelAdapter(_gpioService.GetGpioPin(x.GpioPinNumber))
+            }).ToList();
+
+            var backendSettingsHubModel = new BackendSettingsHubModel();
+            backendSettingsHubModel.PinMap = pinMapList;
+            backendSettingsHubModel.SchedulerSettings = settingsServiceSettings.SchedulerSettings;
+
+            return backendSettingsHubModel;
         }
 
         private async Task HandleCommandFailed(string methodFailed, BaseHubModel hubModel, Exception exception)
