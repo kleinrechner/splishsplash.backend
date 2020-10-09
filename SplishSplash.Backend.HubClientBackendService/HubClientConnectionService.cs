@@ -153,7 +153,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
                 backendSettings.OrderNumber = backendSettingsHubModel.OrderNumber;
                 backendSettings.SchedulerSettings = backendSettingsHubModel.SchedulerSettings;
 
-                backendSettings.PinMap = backendSettingsHubModel.PinMap.Select(x => new PinMap()
+                backendSettings.PinMap = backendSettingsHubModel.PinMap?.Select(x => new PinMap()
                 {
                     DisplayName = x.DisplayName,
                     GpioPinNumber = x.GpioPinNumber,
