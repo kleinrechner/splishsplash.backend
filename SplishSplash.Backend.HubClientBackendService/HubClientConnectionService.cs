@@ -186,7 +186,6 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         {
             try
             {
-
                 var hubUri = new Uri(_settings.Value.HubUrl);
                 _logger.LogInformation($"Starting create connection to \"{hubUri}\" with User \"{_settings.Value.User}\"...");
 
@@ -247,8 +246,11 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             }).ToList();
 
             var backendSettingsHubModel = new BackendSettingsHubModel();
-            backendSettingsHubModel.PinMap = pinMapList;
+            backendSettingsHubModel.DisplayName = settingsServiceSettings.DisplayName;
+            backendSettingsHubModel.OrderNumber = settingsServiceSettings.OrderNumber;
+            backendSettingsHubModel.Icon = settingsServiceSettings.Icon;
             backendSettingsHubModel.SchedulerSettings = settingsServiceSettings.SchedulerSettings;
+            backendSettingsHubModel.PinMap = pinMapList;
 
             return backendSettingsHubModel;
         }
