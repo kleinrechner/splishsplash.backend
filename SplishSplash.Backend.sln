@@ -29,7 +29,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.Settin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.SettingsService", "SplishSplash.Backend.SettingsService\SplishSplash.Backend.SettingsService.csproj", "{B914FAFB-B55E-45F6-8EFA-F0FE56242A19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.SchedulerBackgroundService.Abstractions", "SplishSplash.Backend.SchedulerBackgroundService.Abstractions\SplishSplash.Backend.SchedulerBackgroundService.Abstractions.csproj", "{963E584E-AD28-4727-BF4C-C416324A4A47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.SchedulerBackgroundService.Abstractions", "SplishSplash.Backend.SchedulerBackgroundService.Abstractions\SplishSplash.Backend.SchedulerBackgroundService.Abstractions.csproj", "{963E584E-AD28-4727-BF4C-C416324A4A47}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.Core.Abstractions", "SplishSplash.Backend.Core.Abstractions\SplishSplash.Backend.Core.Abstractions.csproj", "{9E3F0B73-B9C6-4170-B529-2594B6554FAA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplishSplash.Backend.Core", "SplishSplash.Backend.Core\SplishSplash.Backend.Core.csproj", "{E968F7B4-30A4-4E6B-AF11-5A0E1427F57A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SplishSplash.Backend.HubClientBackgroundService.Test", "SplishSplash.Backend.HubClientBackgroundService.Test\SplishSplash.Backend.HubClientBackgroundService.Test.csproj", "{75E5843F-A2C6-4D4C-B55E-53CA7FBA40AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +91,18 @@ Global
 		{963E584E-AD28-4727-BF4C-C416324A4A47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{963E584E-AD28-4727-BF4C-C416324A4A47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{963E584E-AD28-4727-BF4C-C416324A4A47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E3F0B73-B9C6-4170-B529-2594B6554FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E3F0B73-B9C6-4170-B529-2594B6554FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E3F0B73-B9C6-4170-B529-2594B6554FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E3F0B73-B9C6-4170-B529-2594B6554FAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E968F7B4-30A4-4E6B-AF11-5A0E1427F57A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E968F7B4-30A4-4E6B-AF11-5A0E1427F57A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E968F7B4-30A4-4E6B-AF11-5A0E1427F57A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E968F7B4-30A4-4E6B-AF11-5A0E1427F57A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75E5843F-A2C6-4D4C-B55E-53CA7FBA40AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75E5843F-A2C6-4D4C-B55E-53CA7FBA40AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75E5843F-A2C6-4D4C-B55E-53CA7FBA40AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75E5843F-A2C6-4D4C-B55E-53CA7FBA40AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -101,6 +119,9 @@ Global
 		{88833983-83CB-48F2-A3A9-CBE1FF660F87} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 		{B914FAFB-B55E-45F6-8EFA-F0FE56242A19} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
 		{963E584E-AD28-4727-BF4C-C416324A4A47} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{9E3F0B73-B9C6-4170-B529-2594B6554FAA} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{E968F7B4-30A4-4E6B-AF11-5A0E1427F57A} = {C642DFF0-62B7-4E05-BE95-A3D65C8748B9}
+		{75E5843F-A2C6-4D4C-B55E-53CA7FBA40AB} = {82F86C87-55C2-4C42-9397-27C16E50095E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B4312BFF-A6A7-458F-8607-F1F326454229}

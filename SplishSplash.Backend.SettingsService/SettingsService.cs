@@ -51,15 +51,20 @@ namespace Kleinrechner.SplishSplash.Backend.SettingsService
         {
             var filePath = Path.Combine(_webHostEnvironment.ContentRootPath, "App_Data", "SettingsService.json");
 
-            var jsonString = System.IO.File.ReadAllText(filePath);
-            var backendSettingsModel = JsonConvert.DeserializeObject<BackendSettingsModel>(jsonString);
-            backendSettingsModel.BackendSettings = value;
+            BackendSettingsModel backendSettingsModel = null;
+            lock (this)
+            {
+                var jsonString = System.IO.File.ReadAllText(filePath);
+                backendSettingsModel = JsonConvert.DeserializeObject<BackendSettingsModel>(jsonString);
+                backendSettingsModel.BackendSettings = value;
 
-            //serialize the new updated object to a string
-            var toWrite = JsonConvert.SerializeObject(backendSettingsModel, Formatting.Indented);
+                //serialize the new updated object to a string
+                var toWrite = JsonConvert.SerializeObject(backendSettingsModel, Formatting.Indented);
 
-            //overwrite the file and it wil contain the new data
-            System.IO.File.WriteAllText(filePath, toWrite);
+                //overwrite the file and it wil contain the new data
+                System.IO.File.WriteAllText(filePath, toWrite);
+            }
+
             _eventPublisher.Publish(new SettingsUpdatedEvent(backendSettingsModel.BackendSettings));
 
             _settings = value;

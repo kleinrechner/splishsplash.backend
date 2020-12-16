@@ -27,6 +27,8 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Infrastru
             services.Configure<HubClientBackgroundServiceSettings>(configuration.GetSection(HubClientBackgroundServiceSettings.SectionName));
 
             services.AddSingleton<IRetryPolicy, KeepTryingReconnect>();
+            services.AddSingleton<IImportBackendSettingsService, ImportBackendSettingsService>();
+
             services.AddSingleton<HubClientConnectionService>();
             services.AddTransient<IHubClientConnectionService>(x =>
                 x.GetRequiredService<HubClientConnectionService>());

@@ -43,13 +43,13 @@ namespace Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService
             return Task.CompletedTask;
         }
 
-        public Task StopAsync(CancellationToken stoppingToken)
+        public async Task StopAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation($"Stopping service {nameof(SchedulerBackgroundService)}...");
 
             _timer?.Change(Timeout.Infinite, 0);
 
-            return Task.CompletedTask;
+            await _schedulerService.Stop();
         }
 
         public void Dispose()

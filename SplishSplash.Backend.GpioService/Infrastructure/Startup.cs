@@ -21,6 +21,7 @@ namespace Kleinrechner.SplishSplash.Backend.GpioService.Infrastructure
         {
             services.AddTransient<IGpioService, GpioService>();
             services.AddTransient<IGpioPinWrapperFactory, GpioPinWrapperFactory>();
+            services.AddTransient<IChangeGpioPinCommandService, ChangeGpioPinCommandService>();
         }
 
         #endregion

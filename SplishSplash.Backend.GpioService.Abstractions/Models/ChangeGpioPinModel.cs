@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Unosquare.RaspberryIO.Abstractions;
 
-namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions.Models
+namespace Kleinrechner.SplishSplash.Backend.GpioService.Abstractions.Models
 {
-    public class ChangeGpioPinModel : BaseHubModel
+    public class ChangeGpioPinModel
     {
         #region Fields
 

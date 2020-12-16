@@ -6,7 +6,7 @@
     <PackageProjectUrl>https://github.com/kleinrechner</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/kleinrechner/splishsplash.backend</RepositoryUrl>
-    <Version>0.1.2</Version>
+    <Version>0.1.3</Version>
     <AssemblyName>Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService</AssemblyName>
     <RootNamespace>Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService</RootNamespace>
   </PropertyGroup>
@@ -16,9 +16,11 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.7" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.7" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.7" />
+    <PackageReference Include="ncrontab" Version="3.3.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SplishSplash.Backend.Core\SplishSplash.Backend.Core.csproj" />
     <ProjectReference Include="..\SplishSplash.Backend.SettingsService.Abstractions\SplishSplash.Backend.SettingsService.Abstractions.csproj" />
   </ItemGroup>
 

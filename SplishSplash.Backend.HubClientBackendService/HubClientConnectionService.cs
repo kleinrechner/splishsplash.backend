@@ -6,10 +6,14 @@ using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Kleinrechner.SplishSplash.Backend.Core.Extensions;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
+using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions.Models;
 using Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Abstractions.Models;
 using Kleinrechner.SplishSplash.Backend.HubClientBackgroundService.Adapters;
+using Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Abstractions;
+using Kleinrechner.SplishSplash.Backend.SchedulerBackgroundService.Abstractions.Models;
 using Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions;
 using Kleinrechner.SplishSplash.Backend.SettingsService.Abstractions.Models;
 using Microsoft.AspNetCore.SignalR.Client;
@@ -25,6 +29,8 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
         private readonly ISettingsService _settingsService;
         private readonly IGpioService _gpioService;
+        private readonly IChangeGpioPinCommandService _changeGpioPinCommandService;
+        private readonly IImportBackendSettingsService _importBackendSettingsService;
         private readonly IRetryPolicy _retryPolicy;
         private readonly IOptions<HubClientBackgroundServiceSettings> _settings;
         private readonly ILogger<HubClientConnectionService> _logger;
@@ -37,13 +43,17 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         #region Ctor
 
         public HubClientConnectionService(ISettingsService settingsService, 
-                                            IGpioService gpioService, 
+                                            IGpioService gpioService,
+                                            IChangeGpioPinCommandService changeGpioPinCommandService, 
+                                            IImportBackendSettingsService importBackendSettingsService,
                                             IRetryPolicy retryPolicy, 
                                             IOptions<HubClientBackgroundServiceSettings> settings, 
                                             ILogger<HubClientConnectionService> logger)
         {
             _settingsService = settingsService;
             _gpioService = gpioService;
+            _changeGpioPinCommandService = changeGpioPinCommandService;
+            _importBackendSettingsService = importBackendSettingsService;
             _retryPolicy = retryPolicy;
             _settings = settings;
             _logger = logger;
@@ -112,12 +122,12 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         public void HandleEvent(SettingsUpdatedEvent eventMessage)
         {
             try
-            {
+            {                
                 var settingsHubModel = GetBackendSettingsHubModel(eventMessage.SettingsServiceSettings);
 
-                    _hubConnection.InvokeAsync(nameof(ISplishSplashBackendHub.SettingsUpdated),
-                        settingsHubModel,
-                        _cancellationToken).Wait(_cancellationToken);
+                _hubConnection.InvokeAsync(nameof(ISplishSplashBackendHub.SettingsUpdated),
+                    settingsHubModel,
+                    _cancellationToken).Wait(_cancellationToken);
             }
             catch (Exception exc)
             {
@@ -147,21 +157,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
         {
             try
             {
-                var backendSettings = new BackendSettings();
-                backendSettings.DisplayName = backendSettingsHubModel.DisplayName;
-                backendSettings.Icon = backendSettingsHubModel.Icon;
-                backendSettings.OrderNumber = backendSettingsHubModel.OrderNumber;
-                backendSettings.SchedulerSettings = backendSettingsHubModel.SchedulerSettings;
-
-                backendSettings.PinMap = backendSettingsHubModel.PinMap?.Select(x => new PinMap()
-                {
-                    DisplayName = x.DisplayName,
-                    GpioPinNumber = x.GpioPinNumber,
-                    OrderNumber = x.OrderNumber,
-                    Icon = x.Icon
-                }).ToList();
-
-                _settingsService.Save(backendSettings);
+                _importBackendSettingsService.ImportBackendSettingsHubModel(backendSettingsHubModel);
             }
             catch (Exception exc)
             {
@@ -169,12 +165,16 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
             }
         }
 
-        public async Task ChangeGpioPinReceived(ChangeGpioPinModel changeGpioPinModel)
+        public async Task ChangeGpioPinReceived(ChangeGpioPinHubModel changeGpioPinModel)
         {
             try
             {
-                var gpioPin = _gpioService.GetGpioPin(changeGpioPinModel.GpioPinNumber);
-                gpioPin.WriteOutput(changeGpioPinModel.Value);
+                await _changeGpioPinCommandService.ExecuteChangeGpioPinCommandAsync(new ChangeGpioPinModel()
+                {
+                    GpioPinNumber = changeGpioPinModel.GpioPinNumber,
+                    Mode = changeGpioPinModel.Mode,
+                    Value = changeGpioPinModel.Value
+                });
             }
             catch (Exception exc)
             {
@@ -201,7 +201,7 @@ namespace Kleinrechner.SplishSplash.Backend.HubClientBackgroundService
 
                 hubConnection.On<BaseHubModel>(nameof(FrontendConntected), FrontendConntected);
                 hubConnection.On<BackendSettingsHubModel>(nameof(UpdateSettingsReceived), UpdateSettingsReceived);
-                hubConnection.On<ChangeGpioPinModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
+                hubConnection.On<ChangeGpioPinHubModel>(nameof(ChangeGpioPinReceived), ChangeGpioPinReceived);
                 return hubConnection;
             }
             catch (Exception exc)

@@ -71,6 +71,24 @@ steps:
     nobuild: true
     versioningScheme: 'off'
 
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack SplishSplash.Backend.Core"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: 'SplishSplash.Backend.Core/SplishSplash.Backend.Core.csproj'
+    nobuild: true
+    versioningScheme: 'off'
+
+- task: DotNetCoreCLI@2
+  displayName: "dotnet pack SplishSplash.Backend.Core.Abstractions"
+  inputs:
+    command: 'pack'
+    arguments: '--configuration $(buildConfiguration)'
+    packagesToPack: 'SplishSplash.Backend.Core.Abstractions/SplishSplash.Backend.Core.Abstractions.csproj'
+    nobuild: true
+    versioningScheme: 'off'
+
 - task: NuGetCommand@2
   displayName: NuGet Push - AzureDev Ops
   inputs:

@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Kleinrechner.SplishSplash.Backend.GpioService.Abstractions;
+using Kleinrechner.SplishSplash.Hub.Authentication.Abstractions;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Kleinrechner.SplishSplash.Backend.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Administrator")]
-    // [Authorize(Roles = nameof(LoginUserRoles.Administrator))]
+    [Authorize(Roles = nameof(LoginUserRoles.Administrator))]
     public class GpioController : ControllerBase
     {
         private readonly ILogger<GpioController> _logger;
